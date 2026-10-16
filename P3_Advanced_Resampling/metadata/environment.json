@@ -1,0 +1,13 @@
+{
+  "python": "3.12.14",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "cpu_count": 10,
+  "numpy": "2.5.3",
+  "pandas": "3.0.6",
+  "sklearn": "1.9.1",
+  "imblearn": "0.14.2",
+  "xgboost": "3.4.1",
+  "pyarrow": "25.0.1",
+  "openpyxl": "3.1.5",
+  "recorded_at_utc": "2026-10-06T10:07:16.328451+00:00"
+}

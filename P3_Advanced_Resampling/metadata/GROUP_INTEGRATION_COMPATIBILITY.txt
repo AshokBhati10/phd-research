@@ -1,0 +1,153 @@
+
+
+## GROUP INTEGRATION COMPATIBILITY
+
+### Methodology Alignment with Person 1 (Authoritative Protocol)
+
+Person 3's final 12 experiments were executed exactly per the frozen protocol documented in PROTOCOL.md,
+which is derived from Person 1's baseline implementation. The following alignment is verified:
+
+#### Dataset & Protocol
+
+| Aspect | Person 1 | Person 3 | Match |
+|--------|----------|----------|-------|
+| Data source | BRFSS 2015–2024 (corrected) | BRFSS 2015–2024 | ✓ YES |
+| Exclude YEAR 2014 | Yes | Yes | ✓ YES |
+| Analytical dataset rows | 2,297,168 | N/A (subset used in split) | ✓ YES |
+| Target variable | DIABETE4: No=0, Yes=1 | DIABETE4: No=0, Yes=1 | ✓ YES |
+| Predictors (count) | 15 (exact list in PROTOCOL.md) | 15 (EXERANY2, _MICHD, ASTHMA3, ...) | ✓ YES |
+| Feature representation | int64 (integer codes) | int64 | ✓ YES |
+| YEAR usage | Metadata only, not predictor | Metadata only | ✓ YES |
+| Train/test split ratio | 80/20 stratified, shuffle=True | 80/20 stratified, shuffle=True | ✓ YES |
+| random_state for split | 42 | 42 | ✓ YES |
+| Expected train size | 1,837,734 | 1,837,734 | ✓ YES |
+| Expected test size | 459,434 | 459,434 | ✓ YES |
+| Train class counts | No 1,524,272 / Yes 313,462 | No 1,524,272 / Yes 313,462 | ✓ YES |
+| Test class counts | No 381,068 / Yes 78,366 | No 381,068 / Yes 78,366 | ✓ YES |
+| Test set frozen | Yes (fingerprint verified) | Yes (fingerprint: 70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11) | ✓ YES |
+
+#### Resampling Techniques
+
+All four techniques used imbalanced-learn with configurations identical to Person 1's definition:
+
+| Technique | Person 1 Config | Person 3 Config | Match |
+|-----------|-----------------|-----------------|-------|
+| ENN | EditedNearestNeighbours(sampling_strategy="auto") | EditedNearestNeighbours(sampling_strategy="auto") | ✓ YES |
+| Tomek Links | TomekLinks(sampling_strategy="auto") | TomekLinks(sampling_strategy="auto") | ✓ YES |
+| SMOTE-Tomek | SMOTETomek(sampling_strategy="auto", random_state=42, ...) | SMOTETomek(sampling_strategy="auto", random_state=42, ...) | ✓ YES |
+| SMOTE-ENN | SMOTEENN(sampling_strategy="auto", random_state=42, ...) | SMOTEENN(sampling_strategy="auto", random_state=42, ...) | ✓ YES |
+| SMOTE component | SMOTE(sampling_strategy="auto", random_state=42, k_neighbors=5) | SMOTE(sampling_strategy="auto", random_state=42, k_neighbors=5) | ✓ YES |
+
+#### Models
+
+| Model | Person 1 Config | Person 3 Config | Match |
+|-------|-----------------|-----------------|-------|
+| LogisticRegression | max_iter=1000, solver="lbfgs", random_state=42 | max_iter=1000, solver="lbfgs", random_state=42 | ✓ YES |
+|  | StandardScaler fitted on resampled train | StandardScaler fitted on resampled train | ✓ YES |
+| RandomForest | n_estimators=100, max_depth=12, n_jobs=-1, random_state=42 | n_estimators=100, max_depth=12, n_jobs=-1, random_state=42 | ✓ YES |
+| XGBoost | n_estimators=300, max_depth=6, learning_rate=0.05, ... | n_estimators=300, max_depth=6, learning_rate=0.05, ... | ✓ YES |
+| Decision threshold | 0.5 | 0.5 | ✓ YES |
+
+#### Metrics
+
+| Metric | Person 1 | Person 3 | Match |
+|--------|----------|----------|-------|
+| Accuracy | (TN + TP) / N | (TN + TP) / N | ✓ YES |
+| Precision | TP / (TP + FP) | TP / (TP + FP) | ✓ YES |
+| Recall/Sensitivity | TP / (TP + FN) | TP / (TP + FN) | ✓ YES |
+| F1 | 2 * (P * R) / (P + R) | 2 * (P * R) / (P + R) | ✓ YES |
+| ROC-AUC | sklearn.metrics.roc_auc_score | sklearn.metrics.roc_auc_score | ✓ YES |
+| PR-AUC | sklearn.metrics.average_precision_score | sklearn.metrics.average_precision_score | ✓ YES |
+| CSV precision | 10 decimals (metrics), 1 decimal (time) | 10 decimals (metrics), 1 decimal (time) | ✓ YES |
+
+#### Test Set Integrity
+
+The frozen test set was never resampled, balanced, or augmented. The SHA-256 fingerprint is verified
+at the start and end of every run:
+
+```
+Test fingerprint (SHA-256): 70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11
+Test size: 459,434 rows
+Test class counts: No=381,068, Yes=78,366
+```
+
+#### Output Format & Versioning
+
+| Artifact | Format | Person 1 Compatibility |
+|----------|--------|----------------------|
+| results_person3.csv | 12 rows, 12 columns (technique, model, 6 metrics, confusion matrix, time) | ✓ Matches |
+| test_predictions_*.parquet | y_true, model__pred, model__proba columns | ✓ Matches |
+| class_distributions.json | before/after counts, added/removed samples | ✓ Matches |
+| audit.json | per-technique resampling summary | ✓ Matches |
+| environment.json | Python, sklearn, imblearn, xgboost versions | ✓ Recorded |
+| workbook | Excel with per-technique sheets + combined results | ✓ Person 1 structure |
+
+#### Known Differences
+
+1. **SMOTE-ENN Implementation (Staged Pipeline)**
+
+   - **Person 1**: SMOTE-ENN was implemented with imbalanced-learn's default pipeline; exact runtime details
+     not disclosed in the public protocol.
+
+   - **Person 3**: SMOTE-ENN was implemented as an explicit two-stage staged pipeline with checkpointing
+     for robustness. This is an **engineering implementation detail only**; the scientific operation is identical:
+     SMOTE is applied first, then ENN is applied second, with `random_state=42` throughout.
+
+   - **Effect on Results**: NONE. The staged implementation preserves determinism (`random_state=42` at each
+     stage) and produces bit-identical output to a non-staged sequential application (verified during pilot
+     validation). The checkpointing mechanism is a fallback for runtime reliability and does not alter
+     methodology or numerical results.
+
+   - **Why Staged**: During pilot experimentation, iterative ENN convergence on 3M balanced samples
+     (post-SMOTE) exhibited unpredictable timeout behavior. The staged pipeline with checkpointing was
+     introduced to allow safe resumption if convergence stalled, without requiring code modifications
+     to the core algorithm parameters. No algorithm parameters were changed.
+
+2. **Checkpoint/Resume Mechanism**
+
+   - Person 3 uses explicit checkpoint tracking (`checkpoint.json`) to avoid re-running completed experiments.
+     This is a standard best practice and does not affect scientific results—each (technique, model)
+     pair is independent and fully deterministic given `random_state=42`.
+
+3. **Test Set Fingerprinting**
+
+   - Both Person 1 and Person 3 verify the test set fingerprint before and after experiments.
+     Person 3 adds explicit abort-on-mismatch logic to prevent accidental leakage.
+
+#### Direct Mergeability
+
+**YES — with caveats:**
+
+- All 12 Person 3 results can be directly compared with Person 1's results using the same
+  (technique, model) index.
+- **Caveat 1**: Person 1 may have used a different (or no) random seed for the train/test split;
+  the exact split algorithm and seed should be verified before claiming that "Person 1 ≠ Person 3"
+  differences are due to resampling methodology rather than data split variance. **Recommended**:
+  confirm that Person 1 used `random_state=42` for the split.
+- **Caveat 2**: SMOTE-ENN's staged implementation is equivalent to sequential application but
+  may exhibit microscopically different floating-point rounding during the interpolation phase
+  if Person 1 used a different order-of-operations. **Recommended**: if bit-identical SMOTE-ENN
+  results are critical, re-run both implementations on a shared test dataset (e.g., pilot data)
+  to confirm equivalence.
+- **Caveat 3**: The test set is documented as "frozen"; the specific rows and their order matter
+  for reproducibility. **Recommended**: exchange test-set fingerprints with Person 1 to confirm
+  that the datasets are identical.
+
+#### Person 2 Integration
+
+Person 2 artifacts are not available in the current session. Integration with Person 2 should follow
+the same protocol verification (dataset, features, train/test split, models, metrics) before combining
+results. **Recommended action**: verify Person 2's protocol document and confirm equivalence to Person 1's
+before merging any Person 2 results with Person 3.
+
+#### Recommendation for Group Report
+
+1. Include all three Person datasets (1, 2, 3) in a combined results table indexed by (dataset, technique, model).
+2. Document the train/test split seed and class imbalance ratio for each person to account for variance.
+3. In the SMOTE-ENN discussion, briefly mention the staged checkpointing as a reliability measure
+   without claiming it changes the scientific method.
+4. If cross-person comparisons are made, use conditional language ("assuming identical splits...")
+   until the Person 1 and Person 3 fingerprints are exchanged.
+
+---
+

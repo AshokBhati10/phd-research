@@ -1,0 +1,58 @@
+{
+  "ENN": {
+    "technique": "ENN",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1053387,
+      "1": 313462
+    },
+    "added_samples": 0,
+    "removed_samples": 470885,
+    "final_train_size": 1366849
+  },
+  "Tomek Links": {
+    "technique": "Tomek Links",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1517111,
+      "1": 313462
+    },
+    "added_samples": 0,
+    "removed_samples": 7161,
+    "final_train_size": 1830573
+  },
+  "SMOTE-Tomek": {
+    "technique": "SMOTE-Tomek",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 1521727
+    },
+    "added_samples": 1208265,
+    "removed_samples": 0,
+    "final_train_size": 3045999
+  },
+  "SMOTE-ENN": {
+    "technique": "SMOTE-ENN",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 425916
+    },
+    "added_samples": 112454,
+    "removed_samples": 0,
+    "final_train_size": 1950188
+  }
+}

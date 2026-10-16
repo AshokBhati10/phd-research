@@ -1,0 +1,60 @@
+{
+  "scope": "BRFSS 2015-2024 (YEAR==2014 excluded)",
+  "n_analytical": 2297168,
+  "n_2014_excluded": 201035,
+  "features": [
+    "EXERANY2",
+    "_MICHD",
+    "ASTHMA3",
+    "ADDEPEV3",
+    "CHCKDNY2",
+    "MARITAL",
+    "_EDUCAG",
+    "DRNKANY6",
+    "_AGEG5YR",
+    "_BMI5CAT",
+    "_INCOMG1",
+    "_RFSMOK3",
+    "GENHLTH",
+    "HAVARTH4",
+    "SEXVAR"
+  ],
+  "target": "DIABETE4",
+  "target_encoding": {
+    "No": 0,
+    "Yes": 1
+  },
+  "feature_dtype": "int64 (integer-coded categoricals, no one-hot)",
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42,
+    "stratify": true,
+    "shuffle": true
+  },
+  "n_train": 1837734,
+  "n_test": 459434,
+  "train_class_counts": {
+    "0": 1524272,
+    "1": 313462
+  },
+  "test_class_counts": {
+    "0": 381068,
+    "1": 78366
+  },
+  "test_fingerprint_sha256": "70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11",
+  "pilot": false,
+  "pilot_n": null,
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "cpu_count": 10,
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "sklearn": "1.9.1",
+    "imblearn": "0.14.2",
+    "xgboost": "3.4.1",
+    "pyarrow": "25.0.1",
+    "openpyxl": "3.1.5",
+    "recorded_at_utc": "2026-10-05T15:54:09.030362+00:00"
+  }
+}
