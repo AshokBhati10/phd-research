@@ -1,0 +1,14 @@
+{
+  "technique": "No Balancing",
+  "scope": "2015-2024",
+  "train_before": {
+    "0": 1524272,
+    "1": 313462
+  },
+  "train_after": {
+    "0": 1524272,
+    "1": 313462
+  },
+  "added_samples": 0,
+  "final_train_size": 1837734
+}

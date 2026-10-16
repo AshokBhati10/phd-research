@@ -1,0 +1,73 @@
+{
+  "audit": "corrected 2015-2024 rerun (YEAR==2014 excluded)",
+  "master_rows": 2498203,
+  "dropped_2014_rows": 201035,
+  "working_rows": 2297168,
+  "random_state": 42,
+  "split": "stratified 80/20 train/test, shuffle=True",
+  "target": "DIABETE4",
+  "features": [
+    "EXERANY2",
+    "_MICHD",
+    "ASTHMA3",
+    "ADDEPEV3",
+    "CHCKDNY2",
+    "MARITAL",
+    "_EDUCAG",
+    "DRNKANY6",
+    "_AGEG5YR",
+    "_BMI5CAT",
+    "_INCOMG1",
+    "_RFSMOK3",
+    "GENHLTH",
+    "HAVARTH4",
+    "SEXVAR"
+  ],
+  "n_features": 15,
+  "exclude_YEAR": "YEAR kept as metadata only",
+  "feature_encoding": "integer-coded categoricals kept as int (no one-hot); standard SMOTE/ADASYN on integer codes (same as original)",
+  "n_train": 1837734,
+  "n_test": 459434,
+  "train_dist": {
+    "No": 1524272,
+    "Yes": 313462,
+    "pct_No": 82.943,
+    "pct_Yes": 17.057
+  },
+  "test_dist": {
+    "No": 381068,
+    "Yes": 78366,
+    "pct_No": 82.943,
+    "pct_Yes": 17.057
+  },
+  "models": {
+    "LogisticRegression": {
+      "max_iter": 1000,
+      "random_state": 42,
+      "solver": "lbfgs",
+      "scaling": "StandardScaler fitted on TRAIN only"
+    },
+    "RandomForest": {
+      "n_estimators": 100,
+      "max_depth": 12,
+      "n_jobs": -1,
+      "random_state": 42
+    },
+    "XGBoost": {
+      "n_estimators": 300,
+      "max_depth": 6,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "tree_method": "hist",
+      "eval_metric": "logloss",
+      "n_jobs": -1,
+      "random_state": 42
+    }
+  },
+  "resampling": {
+    "random_state": 42,
+    "sampling_strategy": "auto (minority -> majority)",
+    "scope": "TRAIN ONLY; test set never touched"
+  }
+}

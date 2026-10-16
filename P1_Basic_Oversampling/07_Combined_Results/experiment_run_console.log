@@ -1,0 +1,43 @@
+Frozen test set: n=499641, No=414633, Yes=85008
+
+=== No Balancing ===
+  LogisticRegression: acc=0.8335 prec=0.5425 rec=0.1377 f1=0.2197 roc=0.7724 prauc=0.4029 [3.4s]
+  RandomForest: acc=0.8356 prec=0.6149 rec=0.0900 f1=0.1570 roc=0.7784 prauc=0.4166 [125.1s]
+  XGBoost: acc=0.8362 prec=0.5867 rec=0.1266 f1=0.2083 roc=0.7813 prauc=0.4204 [65.5s]
+  saved 03_Baseline/ (CM totals validated, metrics finite)
+
+=== Random Oversampling ===
+  resampling took 1.4s; added 1,318,498 samples; train 1,998,562 -> 3,317,060
+  LogisticRegression: acc=0.6991 prec=0.3233 rec=0.7034 f1=0.4430 roc=0.7726 prauc=0.4013 [6.7s]
+  RandomForest: acc=0.6847 prec=0.3170 rec=0.7391 f1=0.4437 roc=0.7786 prauc=0.4165 [189.9s]
+  XGBoost: acc=0.6831 prec=0.3170 rec=0.7474 f1=0.4452 roc=0.7812 prauc=0.4202 [108.3s]
+  saved 04_Random_Oversampling/ (CM totals validated, metrics finite)
+
+=== SMOTE ===
+  resampling took 236.9s; added 1,318,498 samples; train 1,998,562 -> 3,317,060
+  LogisticRegression: acc=0.7001 prec=0.3231 rec=0.6965 f1=0.4414 roc=0.7698 prauc=0.3991 [8.2s]
+  RandomForest: acc=0.6854 prec=0.3168 rec=0.7342 f1=0.4426 roc=0.7762 prauc=0.4108 [186.9s]
+  XGBoost: acc=0.6841 prec=0.3156 rec=0.7334 f1=0.4413 roc=0.7756 prauc=0.4104 [99.1s]
+  saved 05_SMOTE/ (CM totals validated, metrics finite)
+
+=== ADASYN ===
+  resampling took 686.9s; added 1,301,378 samples; train 1,998,562 -> 3,299,940
+  LogisticRegression: acc=0.6831 prec=0.3130 rec=0.7223 f1=0.4368 roc=0.7681 prauc=0.3968 [10.6s]
+  RandomForest: acc=0.6537 prec=0.3000 rec=0.7766 f1=0.4328 roc=0.7740 prauc=0.4061 [176.6s]
+  XGBoost: acc=0.6543 prec=0.2996 rec=0.7712 f1=0.4315 roc=0.7718 prauc=0.4024 [90.5s]
+  saved 06_ADASYN/ (CM totals validated, metrics finite)
+
+ALL EXPERIMENTS COMPLETE. Combined table:
+             Technique              Model  Accuracy  Precision   Recall       F1  ROC_AUC   PR_AUC
+           03 Baseline LogisticRegression  0.833532   0.542485 0.137740 0.219698 0.772411 0.402937
+           03 Baseline       RandomForest  0.835586   0.614915 0.090015 0.157041 0.778427 0.416572
+           03 Baseline            XGBoost  0.836226   0.586658 0.126623 0.208290 0.781280 0.420428
+04 Random Oversampling LogisticRegression  0.699076   0.323330 0.703416 0.443022 0.772559 0.401316
+04 Random Oversampling       RandomForest  0.684718   0.317031 0.739083 0.443726 0.778609 0.416533
+04 Random Oversampling            XGBoost  0.683060   0.317012 0.747400 0.445194 0.781218 0.420189
+              05 SMOTE LogisticRegression  0.700087   0.323093 0.696534 0.441427 0.769788 0.399072
+              05 SMOTE       RandomForest  0.685442   0.316837 0.734166 0.442646 0.776178 0.410780
+              05 SMOTE            XGBoost  0.684063   0.315610 0.733390 0.441306 0.775584 0.410426
+             06 ADASYN LogisticRegression  0.683082   0.313043 0.722261 0.436777 0.768143 0.396792
+             06 ADASYN       RandomForest  0.653715   0.300015 0.776586 0.432821 0.773969 0.406128
+             06 ADASYN            XGBoost  0.654284   0.299560 0.771151 0.431501 0.771819 0.402364

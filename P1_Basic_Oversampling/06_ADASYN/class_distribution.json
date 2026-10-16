@@ -1,0 +1,13 @@
+{
+  "technique": "ADASYN",
+  "train_before": {
+    "0": 1658530,
+    "1": 340032
+  },
+  "train_after": {
+    "0": 1658530,
+    "1": 1641410
+  },
+  "added_samples": 1301378,
+  "final_train_size": 3299940
+}

@@ -1,0 +1,27 @@
+{
+  "technique": "SMOTE",
+  "scope": "corrected_2015_2024",
+  "n_synthetic_rows": 1210810,
+  "n_rows_with_at_least_one_invalid_feature": 0,
+  "pct_rows_with_at_least_one_invalid_feature": 0.0,
+  "features_with_any_invalid": [],
+  "features_fully_valid": [
+    "EXERANY2",
+    "_MICHD",
+    "ASTHMA3",
+    "ADDEPEV3",
+    "CHCKDNY2",
+    "MARITAL",
+    "_EDUCAG",
+    "DRNKANY6",
+    "_AGEG5YR",
+    "_BMI5CAT",
+    "_INCOMG1",
+    "_RFSMOK3",
+    "GENHLTH",
+    "HAVARTH4",
+    "SEXVAR"
+  ],
+  "worst_feature": "EXERANY2",
+  "worst_feature_pct_invalid": 0.0
+}

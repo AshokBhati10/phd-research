@@ -1,0 +1,24 @@
+{
+  "master_rows": 2498203,
+  "years_present": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "year_2014_n": 201035,
+  "year_2014_pct_of_master": 8.0472,
+  "original_train_2014_n": 160553,
+  "original_test_2014_n": 40482,
+  "original_train_total": 1998562,
+  "original_test_total": 499641,
+  "reproduction_of_original_split": "PASS (identical indices and sizes)",
+  "conclusion": "All four original Person 1 experiments trained on and were evaluated against data including 2014 observations (scope 2014-2024), while the intended research scope is 2015-2024."
+}

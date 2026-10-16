@@ -1,0 +1,13 @@
+{
+  "technique": "No Balancing",
+  "train_before": {
+    "0": 1658530,
+    "1": 340032
+  },
+  "train_after": {
+    "0": 1658530,
+    "1": 340032
+  },
+  "added_samples": 0,
+  "final_train_size": 1998562
+}

@@ -1,0 +1,96 @@
+file name: brfss_master.parquet
+rows: 2,498,203
+columns: 17
+column names: ['YEAR', 'DIABETE4', 'EXERANY2', '_MICHD', 'ASTHMA3', 'ADDEPEV3', 'CHCKDNY2', 'MARITAL', '_EDUCAG', 'DRNKANY6', '_AGEG5YR', '_BMI5CAT', '_INCOMG1', '_RFSMOK3', 'GENHLTH', 'HAVARTH4', 'SEXVAR']
+
+dtypes:
+YEAR          int64
+DIABETE4     object
+EXERANY2    float64
+_MICHD      float64
+ASTHMA3     float64
+ADDEPEV3    float64
+CHCKDNY2    float64
+MARITAL     float64
+_EDUCAG     float64
+DRNKANY6    float64
+_AGEG5YR    float64
+_BMI5CAT    float64
+_INCOMG1    float64
+_RFSMOK3    float64
+GENHLTH     float64
+HAVARTH4    float64
+SEXVAR      float64
+dtype: object
+
+memory usage (MB): 447.6
+
+candidate year columns: ['YEAR']
+value counts of YEAR:
+YEAR
+2014    201035
+2015    176224
+2016    287067
+2017    254491
+2018    251517
+2019    234260
+2020    217393
+2021    218971
+2022    214921
+2023    217594
+2024    224730
+Name: count, dtype: int64
+
+DIABETE4 value counts (incl. NaN):
+DIABETE4
+No     2073163
+Yes     425040
+Name: count, dtype: int64
+
+total missing cells: 0
+NO missing values in any column
+
+duplicate rows: 1045135
+
+value-counts per column (top 5):
+  YEAR: n_unique=11, top={2016: 287067, 2017: 254491, 2018: 251517, 2019: 234260, 2024: 224730}, dominant_share=0.1149
+  DIABETE4: n_unique=2, top={'No': 2073163, 'Yes': 425040}, dominant_share=0.8299
+  EXERANY2: n_unique=2, top={1.0: 1841141, 2.0: 657062}, dominant_share=0.7370
+  _MICHD: n_unique=2, top={2.0: 2210260, 1.0: 287943}, dominant_share=0.8847
+  ASTHMA3: n_unique=2, top={2.0: 2161191, 1.0: 337012}, dominant_share=0.8651
+  ADDEPEV3: n_unique=2, top={2.0: 2014599, 1.0: 483604}, dominant_share=0.8064
+  CHCKDNY2: n_unique=2, top={2.0: 2372078, 1.0: 126125}, dominant_share=0.9495
+  MARITAL: n_unique=6, top={1.0: 1400673, 2.0: 409939, 3.0: 361395, 5.0: 221119, 6.0: 55172}, dominant_share=0.5607
+  _EDUCAG: n_unique=4, top={4.0: 1012946, 3.0: 690765, 2.0: 643946, 1.0: 150546}, dominant_share=0.4055
+  DRNKANY6: n_unique=2, top={1.0: 1274888, 2.0: 1223315}, dominant_share=0.5103
+  _AGEG5YR: n_unique=10, top={10.0: 378327, 8.0: 331125, 11.0: 320041, 9.0: 297254, 13.0: 248003}, dominant_share=0.1514
+  _BMI5CAT: n_unique=4, top={3.0: 926049, 4.0: 850055, 2.0: 688617, 1.0: 33482}, dominant_share=0.3707
+  _INCOMG1: n_unique=6, top={5.0: 1105422, 4.0: 356096, 2.0: 347207, 3.0: 278481, 6.0: 205833}, dominant_share=0.4425
+  _RFSMOK3: n_unique=2, top={1.0: 2164206, 2.0: 333997}, dominant_share=0.8663
+  GENHLTH: n_unique=5, top={2.0: 822511, 3.0: 800170, 1.0: 372975, 4.0: 364652, 5.0: 137895}, dominant_share=0.3292
+  HAVARTH4: n_unique=2, top={2.0: 1461382, 1.0: 1036821}, dominant_share=0.5850
+  SEXVAR: n_unique=2, top={2.0: 1345424, 1.0: 1152779}, dominant_share=0.5386
+
+constant columns (1 unique): []
+near-constant columns (>0.99 share): []
+
+describe (numeric):
+              count         mean       std  ...     50%     75%     max
+YEAR      2498203.0  2018.984930  3.088200  ...  2019.0  2022.0  2024.0
+EXERANY2  2498203.0     1.263014  0.440270  ...     1.0     2.0     2.0
+_MICHD    2498203.0     1.884740  0.319336  ...     2.0     2.0     2.0
+ASTHMA3   2498203.0     1.865098  0.341619  ...     2.0     2.0     2.0
+ADDEPEV3  2498203.0     1.806419  0.395104  ...     2.0     2.0     2.0
+CHCKDNY2  2498203.0     1.949514  0.218946  ...     2.0     2.0     2.0
+MARITAL   2498203.0     1.977815  1.390936  ...     1.0     3.0     6.0
+_EDUCAG   2498203.0     3.027183  0.950548  ...     3.0     4.0     4.0
+DRNKANY6  2498203.0     1.489678  0.499894  ...     1.0     2.0     2.0
+_AGEG5YR  2498203.0     9.160952  2.443133  ...     9.0    11.0    14.0
+_BMI5CAT  2498203.0     3.037817  0.817369  ...     3.0     4.0     4.0
+_INCOMG1  2498203.0     3.971460  1.475726  ...     5.0     5.0     6.0
+_RFSMOK3  2498203.0     1.133695  0.340324  ...     1.0     1.0     2.0
+GENHLTH   2498203.0     2.628525  1.074799  ...     3.0     3.0     5.0
+HAVARTH4  2498203.0     1.584973  0.492727  ...     2.0     2.0     2.0
+SEXVAR    2498203.0     1.538557  0.498511  ...     2.0     2.0     2.0
+
+[16 rows x 8 columns]

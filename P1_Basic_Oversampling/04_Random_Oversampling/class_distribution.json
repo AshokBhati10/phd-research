@@ -1,0 +1,13 @@
+{
+  "technique": "Random Oversampling",
+  "train_before": {
+    "0": 1658530,
+    "1": 340032
+  },
+  "train_after": {
+    "0": 1658530,
+    "1": 1658530
+  },
+  "added_samples": 1318498,
+  "final_train_size": 3317060
+}

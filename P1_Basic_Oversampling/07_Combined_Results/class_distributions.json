@@ -1,0 +1,54 @@
+{
+  "No Balancing": {
+    "technique": "No Balancing",
+    "train_before": {
+      "0": 1658530,
+      "1": 340032
+    },
+    "train_after": {
+      "0": 1658530,
+      "1": 340032
+    },
+    "added_samples": 0,
+    "final_train_size": 1998562
+  },
+  "Random Oversampling": {
+    "technique": "Random Oversampling",
+    "train_before": {
+      "0": 1658530,
+      "1": 340032
+    },
+    "train_after": {
+      "0": 1658530,
+      "1": 1658530
+    },
+    "added_samples": 1318498,
+    "final_train_size": 3317060
+  },
+  "SMOTE": {
+    "technique": "SMOTE",
+    "train_before": {
+      "0": 1658530,
+      "1": 340032
+    },
+    "train_after": {
+      "0": 1658530,
+      "1": 1658530
+    },
+    "added_samples": 1318498,
+    "final_train_size": 3317060
+  },
+  "ADASYN": {
+    "technique": "ADASYN",
+    "train_before": {
+      "0": 1658530,
+      "1": 340032
+    },
+    "train_after": {
+      "0": 1658530,
+      "1": 1641410
+    },
+    "added_samples": 1301378,
+    "final_train_size": 3299940
+  }
+}

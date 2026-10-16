@@ -1,0 +1,14 @@
+{
+  "technique": "Random Oversampling",
+  "scope": "2015-2024",
+  "train_before": {
+    "0": 1524272,
+    "1": 313462
+  },
+  "train_after": {
+    "0": 1524272,
+    "1": 1524272
+  },
+  "added_samples": 1210810,
+  "final_train_size": 3048544
+}

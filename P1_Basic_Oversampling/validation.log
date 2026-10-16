@@ -1,0 +1,394 @@
+# VALIDATION LOG — Person 1 Class-Imbalance Experiments
+# Protocol: Execute -> Validate -> Debug/Rerun -> Validate -> Continue
+# Random seed: 42 everywhere. Frozen test set: n=499,641 (No=414,633 / Yes=85,008).
+
+## STEP 1 — Data inspection (PASS)
+- File: brfss_master.parquet (8,647,149 bytes, downloaded from connected Google Drive; id matched user-supplied share link).
+- Rows: 2,498,203 | Columns: 17
+- Columns: YEAR, DIABETE4, EXERANY2, _MICHD, ASTHMA3, ADDEPEV3, CHCKDNY2, MARITAL,
+  _EDUCAG, DRNKANY6, _AGEG5YR, _BMI5CAT, _INCOMG1, _RFSMOK3, GENHLTH, HAVARTH4, SEXVAR
+- Target DIABETE4 binary: No = 2,073,163 (83.0%), Yes = 425,040 (17.0%).
+  Counts sum to 2,498,203 exactly (validated: 2073163+425040=2498203). Imbalance ratio 4.878:1.
+- Missing values: 0 in all columns. Constant/near-constant columns: none.
+- Duplicate rows: 1,045,135 exact analytical-profile duplicates. Per documented prior audit
+  (person1_final_handoff_status.csv, Drive): duplicate analytical profiles are NOT treated as
+  duplicate respondents; STATE+SEQNO audit found 0 duplicate respondent groups. Master has no
+  STATE/SEQNO columns, so respondent-level dedup cannot be re-verified here; analytical
+  duplicates retained per documented methodology. No accidental duplicates introduced by us.
+- Year coverage: 2014..2024 all 11 years present (2014:201,035 ... 2024:224,730).
+  DEVIATION vs nominal title "2015-2024": actual master covers 2014-2024; all years 2015-2024
+  ARE represented. Using the master as-is; deviation documented in final report.
+- No suspicious values (all codes within documented BRFSS ranges; no negatives).
+
+## STEP 2 — Preprocessing (protocol defined; PASS)
+- CORRECTION 1 (7/9 filter): downloaded prior preprocessing.py contained
+  `df[RESEARCH_VARIABLES].isin([7,9])` row removal. In the MASTER parquet, codes 7 and 9
+  appear only in _AGEG5YR (222,573 and 297,254 rows) where they are VALID age categories
+  (50-54, 60-64). Applying the raw-XPT filter to the already-standardized master would
+  wrongly discard ~20% of valid rows. Decision: do NOT apply the 7/9 filter to the master.
+  The master is already standardized (matches prior handoff PASS audit: 2,498,203 rows,
+  17 cols, 0 missing, DIABETE4 No/Yes, 2014-2024, zero respondent duplicates).
+- Applied: age restriction _AGEG5YR>=5 (kept 2,498,203/2,498,203; min already 5.0),
+  complete-case dropna (no-op, 0 missing).
+- DEVIATION — Group 1 artifacts: Drive searched for 'BRFSS', 'Group 1/Group_1/group1',
+  'Person_1/Person1', 'preprocessing'. No Group 1 preprocessing code, notebook, or results
+  found in Drive or ~/workspace. Only prior-session Person-1 artifacts
+  (preprocessing.py, preprocessing_summary.csv, person1_final_handoff_status.csv,
+  PERSON_1_HANDOFF folders) were found and were used as methodology reference.
+  Therefore Group 1's exact preprocessing/models/seeds CANNOT be reproduced; a clean,
+  defensible protocol is defined and documented here instead (no claim of reproducing Group 1).
+- Target: DIABETE4 -> y = 1 if "Yes" else 0.
+- Features: 15 research variables (EXERANY2, _MICHD, ASTHMA3, ADDEPEV3, CHCKDNY2, MARITAL,
+  _EDUCAG, DRNKANY6, _AGEG5YR, _BMI5CAT, _INCOMG1, _RFSMOK3, GENHLTH, HAVARTH4, SEXVAR).
+  YEAR excluded as metadata (not a patient-level predictor; consistent with the documented
+  RESEARCH_VARIABLES list which excludes YEAR).
+- Feature encoding: integer-coded categoricals kept as int; no one-hot.
+- Split: stratified 80/20, shuffle=True, random_state=42 BEFORE any resampling.
+  Train = 1,998,562 (No 1,658,530 / Yes 340,032); Test = 499,641 (No 414,633 / Yes 85,008).
+- Split validations: sizes sum to 2,498,203; zero index overlap; target not in predictors;
+  identical frozen feature column order for train/test; same class proportions in train and test.
+- Models (documented hyperparameters, random_state=42):
+  LogisticRegression(max_iter=1000) + StandardScaler (scaler fit on TRAIN only);
+  RandomForest(n_estimators=100, max_depth=12, n_jobs=-1);
+  XGBClassifier(n_estimators=300, max_depth=6, lr=0.05, subsample=0.8, colsample_bytree=0.8,
+  tree_method='hist', eval_metric='logloss', n_jobs=-1).
+- Scale decision: full 2.5M-row training used (no downsampling). Benchmarks on 200k:
+  LR 0.2s, RF 9.1s, XGB 6.1s -> full-data fits feasible.
+- No target leakage: all predictors are BRFSS health/demographic variables; target column
+  never present in feature matrices (asserted in code).
+
+# STEP 9 QC AUDIT
+[PASS] file present: 01_Data_Inspection/column_inventory.csv
+[PASS] file present: 01_Data_Inspection/inspection_log.txt
+[PASS] file present: 02_Preprocessing/X_train.parquet
+[PASS] file present: 02_Preprocessing/X_test.parquet
+[PASS] file present: 02_Preprocessing/y_train.parquet
+[PASS] file present: 02_Preprocessing/y_test.parquet
+[PASS] file present: 02_Preprocessing/protocol_config.json
+[PASS] file present: 03_Baseline/results_no_balancing.csv
+[PASS] file present: 03_Baseline/class_distribution.json
+[PASS] file present: 03_Baseline/test_predictions.parquet
+[PASS] file present: 04_Random_Oversampling/results_random_oversampling.csv
+[PASS] file present: 04_Random_Oversampling/class_distribution.json
+[PASS] file present: 04_Random_Oversampling/test_predictions.parquet
+[PASS] file present: 05_SMOTE/results_smote.csv
+[PASS] file present: 05_SMOTE/class_distribution.json
+[PASS] file present: 05_SMOTE/test_predictions.parquet
+[PASS] file present: 06_ADASYN/results_adasyn.csv
+[PASS] file present: 06_ADASYN/class_distribution.json
+[PASS] file present: 06_ADASYN/test_predictions.parquet
+[PASS] file present: 07_Combined_Results/combined_results.csv
+[PASS] file present: 07_Combined_Results/class_distributions.json
+[PASS] file present: 09_Code/01_data_inspection.py
+[PASS] file present: 09_Code/02_preprocess_split.py
+[PASS] file present: 09_Code/03_experiments.py
+[PASS] file present: 09_Code/04_visualizations.py
+[PASS] file present: 09_Code/05_qc.py
+[PASS] file present: 10_Final_Report/Person_1_Final_Report.md
+[PASS] visualization 01 present 01_class_dist_original.png
+[PASS] visualization 02 present 02_class_dist_ros.png
+[PASS] visualization 03 present 03_class_dist_smote.png
+[PASS] visualization 04 present 04_class_dist_adasyn.png
+[PASS] visualization 05 present 05_confusion_matrices.png
+[PASS] visualization 06 present 06_roc_curves.png
+[PASS] visualization 07 present 07_pr_curves.png
+[PASS] visualization 08 present 08_accuracy_comparison.png
+[PASS] visualization 09 present 09_recall_comparison.png
+[PASS] visualization 10 present 10_f1_comparison.png
+[PASS] visualization 11 present 11_roc_auc_comparison.png
+[PASS] visualization 12 present 12_pr_auc_comparison.png
+[PASS] master dataset exists
+[PASS] master dataset size unchanged (8647149 bytes) size=8647149
+[PASS] 03_Baseline: test y_true identical to frozen test set n=499641
+[PASS] 03_Baseline: LogisticRegression proba has no NaN/inf
+[PASS] 03_Baseline: LogisticRegression proba in [0,1]
+[PASS] 03_Baseline: RandomForest proba has no NaN/inf
+[PASS] 03_Baseline: RandomForest proba in [0,1]
+[PASS] 03_Baseline: XGBoost proba has no NaN/inf
+[PASS] 03_Baseline: XGBoost proba in [0,1]
+[PASS] 04_Random_Oversampling: test y_true identical to frozen test set n=499641
+[PASS] 04_Random_Oversampling: LogisticRegression proba has no NaN/inf
+[PASS] 04_Random_Oversampling: LogisticRegression proba in [0,1]
+[PASS] 04_Random_Oversampling: RandomForest proba has no NaN/inf
+[PASS] 04_Random_Oversampling: RandomForest proba in [0,1]
+[PASS] 04_Random_Oversampling: XGBoost proba has no NaN/inf
+[PASS] 04_Random_Oversampling: XGBoost proba in [0,1]
+[PASS] 05_SMOTE: test y_true identical to frozen test set n=499641
+[PASS] 05_SMOTE: LogisticRegression proba has no NaN/inf
+[PASS] 05_SMOTE: LogisticRegression proba in [0,1]
+[PASS] 05_SMOTE: RandomForest proba has no NaN/inf
+[PASS] 05_SMOTE: RandomForest proba in [0,1]
+[PASS] 05_SMOTE: XGBoost proba has no NaN/inf
+[PASS] 05_SMOTE: XGBoost proba in [0,1]
+[PASS] 06_ADASYN: test y_true identical to frozen test set n=499641
+[PASS] 06_ADASYN: LogisticRegression proba has no NaN/inf
+[PASS] 06_ADASYN: LogisticRegression proba in [0,1]
+[PASS] 06_ADASYN: RandomForest proba has no NaN/inf
+[PASS] 06_ADASYN: RandomForest proba in [0,1]
+[PASS] 06_ADASYN: XGBoost proba has no NaN/inf
+[PASS] 06_ADASYN: XGBoost proba in [0,1]
+[PASS] combined results has 12 rows (4 techniques x 3 models) rows=12
+[PASS] all 4 techniques present
+[PASS] all 3 models present
+[PASS] Accuracy: no NaN/inf, in [0,1]
+[PASS] Precision: no NaN/inf, in [0,1]
+[PASS] Recall: no NaN/inf, in [0,1]
+[PASS] F1: no NaN/inf, in [0,1]
+[PASS] ROC_AUC: no NaN/inf, in [0,1]
+[PASS] PR_AUC: no NaN/inf, in [0,1]
+[PASS] CM total == test size (No Balancing/LogisticRegression) total=499641
+[PASS] Accuracy == (TN+TP)/n (No Balancing/LogisticRegression)
+[PASS] F1 == 2PR/(P+R) (No Balancing/LogisticRegression)
+[PASS] CM total == test size (No Balancing/RandomForest) total=499641
+[PASS] Accuracy == (TN+TP)/n (No Balancing/RandomForest)
+[PASS] F1 == 2PR/(P+R) (No Balancing/RandomForest)
+[PASS] CM total == test size (No Balancing/XGBoost) total=499641
+[PASS] Accuracy == (TN+TP)/n (No Balancing/XGBoost)
+[PASS] F1 == 2PR/(P+R) (No Balancing/XGBoost)
+[PASS] CM total == test size (Random Oversampling/LogisticRegression) total=499641
+[PASS] Accuracy == (TN+TP)/n (Random Oversampling/LogisticRegression)
+[PASS] F1 == 2PR/(P+R) (Random Oversampling/LogisticRegression)
+[PASS] CM total == test size (Random Oversampling/RandomForest) total=499641
+[PASS] Accuracy == (TN+TP)/n (Random Oversampling/RandomForest)
+[PASS] F1 == 2PR/(P+R) (Random Oversampling/RandomForest)
+[PASS] CM total == test size (Random Oversampling/XGBoost) total=499641
+[PASS] Accuracy == (TN+TP)/n (Random Oversampling/XGBoost)
+[PASS] F1 == 2PR/(P+R) (Random Oversampling/XGBoost)
+[PASS] CM total == test size (SMOTE/LogisticRegression) total=499641
+[PASS] Accuracy == (TN+TP)/n (SMOTE/LogisticRegression)
+[PASS] F1 == 2PR/(P+R) (SMOTE/LogisticRegression)
+[PASS] CM total == test size (SMOTE/RandomForest) total=499641
+[PASS] Accuracy == (TN+TP)/n (SMOTE/RandomForest)
+[PASS] F1 == 2PR/(P+R) (SMOTE/RandomForest)
+[PASS] CM total == test size (SMOTE/XGBoost) total=499641
+[PASS] Accuracy == (TN+TP)/n (SMOTE/XGBoost)
+[PASS] F1 == 2PR/(P+R) (SMOTE/XGBoost)
+[PASS] CM total == test size (ADASYN/LogisticRegression) total=499641
+[PASS] Accuracy == (TN+TP)/n (ADASYN/LogisticRegression)
+[PASS] F1 == 2PR/(P+R) (ADASYN/LogisticRegression)
+[PASS] CM total == test size (ADASYN/RandomForest) total=499641
+[PASS] Accuracy == (TN+TP)/n (ADASYN/RandomForest)
+[PASS] F1 == 2PR/(P+R) (ADASYN/RandomForest)
+[PASS] CM total == test size (ADASYN/XGBoost) total=499641
+[PASS] Accuracy == (TN+TP)/n (ADASYN/XGBoost)
+[PASS] F1 == 2PR/(P+R) (ADASYN/XGBoost)
+[PASS] baseline train distribution matches split (No=1658530, Yes=340032)
+[PASS] Random Oversampling: minority resampled to majority size (1658530) after={0: 1658530, 1: 1658530}
+[PASS] SMOTE: minority resampled to majority size (1658530) after={0: 1658530, 1: 1658530}
+[PASS] ADASYN: documented non-parity (minority < majority) after={0: 1658530, 1: 1641410}
+[PASS] Random Oversampling: added == after-before added=1318498
+[PASS] SMOTE: added == after-before added=1318498
+[PASS] ADASYN: added == after-before added=1301378
+[PASS] random_state=42 recorded in config
+[PASS] train/test sizes recorded
+[PASS] 15 features recorded
+[PASS] test set size == frozen fingerprint
+
+
+## STEP 3 - No-Balancing baseline (PASS)
+- Original imbalanced training data; no sampling applied (code path: sampler=None).
+- All 3 models trained on train (1,998,562), evaluated on frozen test (499,641).
+- Metrics: LR acc=0.8335 prec=0.5425 rec=0.1377 f1=0.2197 roc=0.7724 prauc=0.4029;
+  RF acc=0.8356 prec=0.6149 rec=0.0900 f1=0.1570 roc=0.7784 prauc=0.4166;
+  XGB acc=0.8362 prec=0.5867 rec=0.1266 f1=0.2083 roc=0.7813 prauc=0.4204.
+- Validations: CM totals == 499,641; metrics finite in [0,1]; F1 consistent with P/R;
+  test fingerprint unchanged. Results saved to 03_Baseline/results_no_balancing.csv.
+
+## STEP 4 - Random Oversampling (PASS)
+- ROS applied to TRAIN ONLY (test fingerprint re-verified unchanged after run).
+- Before: No=1,658,530 / Yes=340,032. After: 1,658,530 / 1,658,530 (exact parity).
+  Added 1,318,498 replicated minority rows; final train 3,317,060; 15 features unchanged.
+- Metrics (test): LR acc=0.6991 prec=0.3233 rec=0.7034 f1=0.4430 roc=0.7726 prauc=0.4013;
+  RF acc=0.6847 prec=0.3170 rec=0.7391 f1=0.4437 roc=0.7786 prauc=0.4165;
+  XGB acc=0.6831 prec=0.3170 rec=0.7474 f1=0.4452 roc=0.7812 prauc=0.4202.
+- Validations: same as baseline + added-samples accounting consistent.
+  Results saved to 04_Random_Oversampling/results_random_oversampling.csv.
+
+## STEP 5 - SMOTE (PASS)
+- CORRECTION: SMOTENC attempted first (categorical-aware was the plan) but
+  imbalanced-learn 0.14.2 raised ValueError: "SMOTE-NC is not designed to work only
+  with categorical features. It requires some numerical features." All 15 BRFSS
+  features are integer-coded categoricals. -> Standard SMOTE(k_neighbors=5) used on
+  integer codes (published BRFSS-SMOTE convention); config + docstrings updated.
+- Applied to TRAIN ONLY after the split. Before: No=1,658,530 / Yes=340,032.
+  After: 1,658,530 / 1,658,530 (exact parity); +1,318,498 synthetic samples;
+  final train 3,317,060. Synthetic values validated within observed per-feature
+  [min,max]; no NaN/inf; 15 features unchanged.
+- Metrics (test): LR acc=0.7001 prec=0.3231 rec=0.6965 f1=0.4414 roc=0.7698 prauc=0.3991;
+  RF acc=0.6854 prec=0.3168 rec=0.7342 f1=0.4426 roc=0.7762 prauc=0.4108;
+  XGB acc=0.6841 prec=0.3156 rec=0.7334 f1=0.4413 roc=0.7756 prauc=0.4104.
+- Results saved to 05_SMOTE/results_smote.csv.
+
+## STEP 6 - ADASYN (PASS)
+- ADASYN(n_neighbors=5) applied to TRAIN ONLY. Before: No=1,658,530 / Yes=340,032.
+  After: No=1,658,530 / Yes=1,641,410. Added 1,301,378 synthetic samples;
+  final train 3,299,940. ADASYN did NOT reach exact parity (minority < majority) -
+  this is known/expected adaptive behavior and was NOT forced (per spec).
+- Metrics (test): LR acc=0.6831 prec=0.3130 rec=0.7223 f1=0.4368 roc=0.7681 prauc=0.3968;
+  RF acc=0.6537 prec=0.3000 rec=0.7766 f1=0.4328 roc=0.7740 prauc=0.4061;
+  XGB acc=0.6543 prec=0.2996 rec=0.7712 f1=0.4315 roc=0.7718 prauc=0.4024.
+- Validations: feature count unchanged, synthetic values within observed ranges,
+  test fingerprint unchanged. Results saved to 06_ADASYN/results_adasyn.csv.
+
+## STEP 7 - Fair comparison (PASS)
+- consolidated to 07_Combined_Results/combined_results.csv (12 rows = 4 x 3) and
+  class_distributions.json. CORRECTION: first run derived Technique labels from
+  folder names ("03 Baseline" etc.); relabeled deterministically to the canonical
+  names (No Balancing / Random Oversampling / SMOTE / ADASYN); metrics untouched.
+- Fairness: same dataset, features, preprocessing, split, frozen test set, models,
+  metrics, seeds across all experiments.
+
+## STEP 8 - Visualizations (PASS)
+- 12 PNGs generated in 08_Visualizations (class distributions x4, confusion
+  matrices, ROC curves, PR curves, accuracy/recall/F1/ROC-AUC/PR-AUC comparisons).
+- CORRECTIONS during viz build: (a) KeyError from JSON string keys in class-dist
+  helper - fixed with int() conversion; (b) SyntaxError from two statements joined
+  on one line - fixed. Reran; all 12 saved. Axes honest (bars from 0).
+
+================================================================================
+AUDIT LOG - Final methodological audit (2026-10-01)
+================================================================================
+
+## AUDIT 1a - Year-scope audit (01_year_audit.py) (PASS)
+- Master YEAR value counts: 2014=201,035 (8.0472%); 2015-2024 all present.
+- Original frozen split re-joined to master on index: train contained 160,553
+  YEAR=2014 rows; test contained 40,482 YEAR=2014 rows. All four v1 experiments
+  therefore trained on and were evaluated against 2014 data (scope 2014-2024).
+- Recomputed v1 preprocessing+split (seed 42, stratified 80/20): byte-identical
+  indices and sizes (train=1,998,562 / test=499,641). Reproduction assertion PASS.
+- Saved: 11_Audit_2015_2024_Rerun/01_year_audit/year_counts.csv,
+  year_audit_summary.json.
+
+## AUDIT 1b - Corrected 2015-2024 rerun (02_rerun_2015_2024.py) (PASS)
+- CORRECTION: first launch failed at parse time (SyntaxError: stray parenthesis in
+  check_scope assertion). Fixed, syntax re-verified with ast.parse, relaunched clean.
+  No partial outputs were written by the failed launch.
+- Working set: master minus YEAR==2014 -> 2,297,168 rows (201,035 dropped).
+- Identical protocol: 15 features, int encoding, stratified 80/20 seed 42 ->
+  train=1,837,734 (No 1,524,272 / Yes 313,462); NEW frozen test set n=459,434
+  (No 381,068 / Yes 78,366), never resampled.
+- Same 3 models + hyperparameters, same samplers (seed 42), resampling TRAIN ONLY.
+- QC battery PASS: 12/12 confusion-matrix totals == 459,434; F1 == 2PR/(P+R) to 1e-9
+  for all cells; all metrics finite and within [0,1]; no NaN/inf; test fingerprint
+  byte-identical after every experiment.
+- Class counts: ROS +1,210,810 -> 3,048,544 (exact parity); SMOTE +1,210,810 ->
+  3,048,544 (exact parity); ADASYN +1,201,468 -> 3,039,202 (minority 1,514,930,
+  non-parity = documented expected ADASYN behavior, not forced).
+- Scope sensitivity: max |Δ| vs v1 table = 0.0074 across all 72 metric cells
+  (largest: No Balancing/RandomForest Precision 0.6149 -> 0.6076). Best F1 stays
+  ROS+XGBoost (0.4453); highest recall stays ADASYN+RF (0.7716). No conclusion changes.
+- Saved: 11_Audit_2015_2024_Rerun/ (02_preprocessing_audit, 03-06 experiment dirs,
+  07_combined_results_audit/combined_results_2015_2024.csv).
+
+## AUDIT 2 - Synthetic-feature validity (03_feature_validity.py) (PASS)
+- Reproduction verification (original scope): SMOTE/ADASYN class counts exactly equal
+  the saved 05_SMOTE/06_ADASYN class_distribution.json; X_res[:n_orig] == X_train
+  exactly for both -> synthetic rows precisely isolated. PASS.
+- Reproduction verification (corrected scope): corrected split matches the rerun's
+  saved X_train (indices + values); class counts exactly equal the rerun's saved
+  class_distribution_2015_2024.json for both methods. PASS.
+- Strict per-feature validity (invalid = non-integer OR not in observed code set;
+  [min,max] range alone NOT accepted as valid):
+  SMOTE original: 1,318,498 synthetic rows, 0 rows (0.0%) with >=1 invalid feature.
+  ADASYN original: 1,301,378 synthetic rows, 0 rows (0.0%) with >=1 invalid feature.
+  SMOTE corrected: 1,210,810 synthetic rows, 0 rows (0.0%) with >=1 invalid feature.
+  ADASYN corrected: 1,201,468 synthetic rows, 0 rows (0.0%) with >=1 invalid feature.
+  All 15 features fully valid in all 4 audits. Affected features: NONE.
+- MECHANISM FINDING (verified in imbalanced-learn 0.14.2 source):
+  BaseSMOTE._generate_samples and ADASYN._fit_resample both end with
+  `X_new = X_new.astype(X.dtype)` -> interpolated floats are SILENTLY TRUNCATED
+  toward zero to int64, not rounded. Disclosed in report §11; not hidden, not
+  "repaired". Impact negligible here: synthetic code distributions ≈ minority-train
+  distributions (e.g. EXERANY2 0.612/0.388 -> 0.645/0.355); ~93% of SMOTE synthetic
+  rows exactly duplicate a training profile (exact-duplicate kNN neighbors), which
+  is why SMOTE ≈ ROS on this data.
+- DECISION: no rounding/clipping applied (per hard rules); no algorithm change;
+  SMOTE-N not implemented (assigned to another team member; unnecessary here since
+  all codes are consecutive integers and the strict audit passes 0%). Documented in
+  report §11.
+- Saved: 12_Audit_Feature_Validity/{original_scope,corrected_scope}/
+  (per-feature CSVs, validity_summaries.json, synthetic-samples parquet for both
+  methods x both scopes).
+
+## REPORT UPDATE (04_build_report_v2.py) (PASS)
+- v1 report preserved verbatim as
+  10_Final_Report/Person_1_Final_Report_ORIGINAL_SCOPE.md (never edited again).
+- Person_1_Final_Report.md rewritten as v2: primary table = corrected 2015-2024;
+  v1 table kept as Appendix A; new §10 (year-scope audit), §11 (validity audit),
+  §12 (final recommendation); §6-§9 updated; file map extended.
+- Master dataset NEVER modified (read-only throughout; size/mtime unchanged).
+- Original folders 01-10 untouched; all audit outputs in 11_*, 12_*, 09_Code/audit/.
+
+FINAL AUDIT VALIDATION STATUS: ALL CHECKS PASS.
+
+================================================================================
+FINAL CONSISTENCY / QUALITY / THESIS-READINESS CLEANUP (2026-10-01) — QA RECORD
+================================================================================
+
+## Files changed/created
+- CREATED: 10_Final_Report/Person_1_Final_Report_v2_AUDITED.md
+  (byte-identical copy of Person_1_Final_Report.md; verified with cmp — PASS)
+- CREATED: 10_Final_Report/Person_1_Final_Report_FINAL.md (thesis-ready, this cleanup)
+- UNTOUCHED: 10_Final_Report/Person_1_Final_Report_ORIGINAL_SCOPE.md (v1, verbatim)
+- CREATED: 08_Visualizations_FINAL_2015_2024/ with 12 regenerated plots from the
+  corrected 2015-2024 results + corrected test predictions (script:
+  09_Code/audit/05_regenerate_plots_2015_2024.py)
+  01_class_dist_analytical.png, 02_class_dist_random_oversampling.png,
+  03_class_dist_smote.png, 04_class_dist_adasyn.png, 05_confusion_matrices.png,
+  06_roc_curves.png, 07_pr_curves.png, 08_accuracy_comparison.png,
+  09_recall_comparison.png, 10_f1_comparison.png, 11_roc_auc_comparison.png,
+  12_pr_auc_comparison.png — all exist, non-trivial sizes (50-249 KB); 2 spot-checked visually.
+- UNTOUCHED: 08_Visualizations/ (original-scope plots, now labeled sensitivity reference)
+- UNTOUCHED: folders 01-10 original-scope artifacts, 11_*, 12_*, master dataset.
+- FIX: stray shell fragment removed from 09_Code/audit/05_regenerate_plots_2015_2024.py
+  (file had "EOF" + shell line appended); AST syntax re-verified OK.
+
+## Authoritative numbers recomputed from files (never hand-estimated)
+- Corrected analytical set (2015-2024): 2,297,168 rows; No 1,905,340 (82.9430%) /
+  Yes 391,828 (17.0570%); ratio 4.8627:1 — from 02_preprocessing_audit y parquet.
+- Train: 1,837,734 (No 1,524,272 / Yes 313,462); Test: 459,434 (No 381,068 / Yes 78,366).
+- ROS: added 1,210,810 -> final 3,048,544 (exact parity).
+- SMOTE: added 1,210,810 -> final 3,048,544 (exact parity).
+- ADASYN: added 1,201,468 -> final 3,039,202 (minority 1,514,930 < 1,524,272; non-parity).
+- Missing values: 0; min _AGEG5YR = 5 (age restriction retains all rows); years 2015-2024
+  all present (176,224 / 287,067 / 254,491 / 251,517 / 234,260 / 217,393 / 218,971 /
+  214,921 / 217,594 / 224,730 — sum 2,297,168).
+- Year audit: 2014 = 201,035 rows (8.0472%); all four original experiments proven to
+  have used 2014 data (train 160,553 / test 40,482; original split reproduction PASS).
+
+## Results-table cross-check (authoritative CSV vs report table)
+- 11_Audit_2015_2024_Rerun/07_combined_results_audit/combined_results_2015_2024.csv
+  compared cell-by-cell (12 rows x 6 metrics, 4-decimal rounding) against the final
+  report table: 0 MISMATCHES.
+- All 12 confusion matrices: TN+FP+FN+TP == 459,434 — PASS.
+
+## Stale-number greps on Person_1_Final_Report_FINAL.md
+- "499,641": 3 occurrences — ALL in labeled historical/sensitivity contexts
+  (§7 validation note, §10 reproduction proof, Appendix A header).
+- "1,998,562": 1 occurrence — labeled original-split reproduction proof (§10).
+- "2014–2024": 12 occurrences — ALL in sensitivity/audit/master-description/Appendix-A contexts.
+- "459,434": 13 occurrences — primary test-set usage. "1,837,734": 6 — primary train.
+  "2015–2024": 23 — primary scope usage.
+- Stale phrases "2.5M-row training" / "retained all 2,498,203 rows" (as primary pipeline):
+  ABSENT. The only "generated from the original scope" mention refers to the retained
+  old plot folder, explicitly labeled sensitivity reference.
+- "2,498,203" appears only in master-source contexts (§1.1, thesis paragraph). PASS.
+
+## Sections corrected in FINAL.md
+§1 (master vs analytical dataset split + year table), §2 (11-step preprocessing order),
+§3 (corrected resampling counts from JSONs), §4 (1,837,734 training size),
+§5 (n=459,434), §6 (authoritative table + regenerated plot references + observations),
+§7 (corrected validation numbers), §8 (A/B/C/D issue structure), §9 (corrected-scope
+interpretation + sensitivity note), §10 year-scope audit, §11 sensitivity-vs-primary,
+§12 synthetic-data discussion (0-invalid + truncation caveat + 93% duplication + SMOTE-N
+to teammate), §13 recommendation, Appendix A (sensitivity reference ONLY), thesis-ready
+methodology paragraph, file map (PRIMARY vs AUDIT/SENSITIVITY).
+
+## Genuine inconsistencies found
+NONE. The only anomaly encountered was the stray shell text in the plot-regeneration
+script (fixed, syntax re-verified, no effect on outputs). No validated experimental
+result was altered; no rerun was performed; master dataset untouched
+(size 8,647,149 bytes, mtime 2026-10-01 11:18:49 UTC — unchanged).
+
+FINAL CLEANUP VALIDATION STATUS: ALL CHECKS PASS.
+================================================================================
