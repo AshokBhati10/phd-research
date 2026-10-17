@@ -1,0 +1,22 @@
+Model,Metric,Winner,Value,Person,Family,Runner_up,Runner_up_value
+LogisticRegression,Accuracy,No Balancing,0.8329770979074252,P1,Baseline,Tomek Links,0.8328813279
+LogisticRegression,Precision,No Balancing,0.541598611678236,P1,Baseline,Tomek Links,0.5384951456
+LogisticRegression,Recall,ADASYN,0.7223540821274532,P1,Basic oversampling,Borderline-SMOTE,0.7061735957
+LogisticRegression,F1,Random Oversampling,0.443513667930055,P1,Basic oversampling,SMOTE,0.4410440752615046
+LogisticRegression,ROC_AUC,ENN,0.7715290767,P3,Cleaning & hybrid,Random Oversampling,0.7714527710302446
+LogisticRegression,PR_AUC,Tomek Links,0.4011407527,P3,Cleaning & hybrid,No Balancing,0.4010148422775539
+LogisticRegression,F1_gain_over_baseline,Random Oversampling,0.22686980014998598,P1,Basic oversampling,baseline F1,0.216643867780069
+RandomForest,Accuracy,Tomek Links,0.8349142641,P3,Cleaning & hybrid,No Balancing,0.8347205474562178
+RandomForest,Precision,No Balancing,0.6075568533758074,P1,Baseline,Tomek Links,0.6023225597
+RandomForest,Recall,ADASYN,0.7715718551412603,P1,Basic oversampling,Borderline-SMOTE,0.7617589261
+RandomForest,F1,Random Oversampling,0.4441374864746644,P1,Basic oversampling,SMOTE-Tomek,0.4416161383
+RandomForest,ROC_AUC,Random Oversampling,0.7776735168148116,P1,Basic oversampling,Tomek Links,0.7775852317
+RandomForest,PR_AUC,Tomek Links,0.4138695571,P3,Cleaning & hybrid,No Balancing,0.4136975826365087
+RandomForest,F1_gain_over_baseline,Random Oversampling,0.2909930743721072,P1,Basic oversampling,baseline F1,0.1531444121025572
+XGBoost,Accuracy,No Balancing,0.8354279395952411,P1,Baseline,Tomek Links,0.8354061737
+XGBoost,Precision,No Balancing,0.5832427207925577,P1,Baseline,Tomek Links,0.5769360081
+XGBoost,Recall,ADASYN,0.7688921215833397,P1,Basic oversampling,Borderline-SMOTE,0.7601383253
+XGBoost,F1,Random Oversampling,0.4453327851002429,P1,Basic oversampling,ENN,0.442020801
+XGBoost,ROC_AUC,Tomek Links,0.7802854482,P3,Cleaning & hybrid,No Balancing,0.7802476646724136
+XGBoost,PR_AUC,Random Oversampling,0.4176487260618746,P1,Basic oversampling,No Balancing,0.4176354273321823
+XGBoost,F1_gain_over_baseline,Random Oversampling,0.24189831396665679,P1,Basic oversampling,baseline F1,0.2034344711335861

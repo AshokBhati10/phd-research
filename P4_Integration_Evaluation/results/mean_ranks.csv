@@ -1,0 +1,37 @@
+Model,Technique,Rank,Mean_rank,Family
+LogisticRegression,Random Oversampling,4.5,4.5,Basic oversampling
+LogisticRegression,ENN,4.666666666666667,4.67,Cleaning & hybrid
+LogisticRegression,Tomek Links,5.0,5.0,Cleaning & hybrid
+LogisticRegression,No Balancing,5.333333333333333,5.33,Baseline
+LogisticRegression,SMOTE,5.833333333333333,5.83,Basic oversampling
+LogisticRegression,SMOTE-Tomek,6.166666666666667,6.17,Cleaning & hybrid
+LogisticRegression,Borderline-SMOTE,6.5,6.5,Advanced oversampling
+LogisticRegression,SVM-SMOTE,7.0,7.0,Advanced oversampling
+LogisticRegression,ADASYN,7.833333333333333,7.83,Basic oversampling
+LogisticRegression,SMOTE-ENN,7.833333333333333,7.83,Cleaning & hybrid
+LogisticRegression,KMeans-SMOTE,8.0,8.0,Advanced oversampling
+LogisticRegression,SMOTE-N,9.333333333333334,9.33,Advanced oversampling
+RandomForest,Random Oversampling,4.0,4.0,Basic oversampling
+RandomForest,Tomek Links,4.666666666666667,4.67,Cleaning & hybrid
+RandomForest,ENN,5.166666666666667,5.17,Cleaning & hybrid
+RandomForest,No Balancing,5.333333333333333,5.33,Baseline
+RandomForest,SMOTE,6.166666666666667,6.17,Basic oversampling
+RandomForest,SMOTE-Tomek,6.166666666666667,6.17,Cleaning & hybrid
+RandomForest,SVM-SMOTE,6.666666666666667,6.67,Advanced oversampling
+RandomForest,Borderline-SMOTE,7.333333333333333,7.33,Advanced oversampling
+RandomForest,ADASYN,7.666666666666667,7.67,Basic oversampling
+RandomForest,SMOTE-ENN,7.833333333333333,7.83,Cleaning & hybrid
+RandomForest,KMeans-SMOTE,8.166666666666666,8.17,Advanced oversampling
+RandomForest,SMOTE-N,8.833333333333334,8.83,Advanced oversampling
+XGBoost,Random Oversampling,4.166666666666667,4.17,Basic oversampling
+XGBoost,ENN,4.5,4.5,Cleaning & hybrid
+XGBoost,No Balancing,5.0,5.0,Baseline
+XGBoost,Tomek Links,5.0,5.0,Cleaning & hybrid
+XGBoost,SMOTE,5.833333333333333,5.83,Basic oversampling
+XGBoost,SMOTE-Tomek,6.166666666666667,6.17,Cleaning & hybrid
+XGBoost,SVM-SMOTE,7.0,7.0,Advanced oversampling
+XGBoost,Borderline-SMOTE,7.5,7.5,Advanced oversampling
+XGBoost,ADASYN,7.833333333333333,7.83,Basic oversampling
+XGBoost,KMeans-SMOTE,7.833333333333333,7.83,Advanced oversampling
+XGBoost,SMOTE-ENN,7.833333333333333,7.83,Cleaning & hybrid
+XGBoost,SMOTE-N,9.333333333333334,9.33,Advanced oversampling

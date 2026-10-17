@@ -1,0 +1,419 @@
+{
+  "generated_at_utc": "2026-10-17T18:59:04.318534+00:00",
+  "test_fingerprint": "70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11",
+  "sources_verified": 13,
+  "max_metric_recompute_diff": 7.636547033618157e-08,
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "test fingerprint matches the frozen reference",
+      "pass": true,
+      "detail": "70e180c659c74efb..."
+    },
+    {
+      "check": "P1:No Balancing: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P1:No Balancing: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:No Balancing: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:No Balancing/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.51e-09, CM OK"
+    },
+    {
+      "check": "P1:No Balancing/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 7.40e-09, CM OK"
+    },
+    {
+      "check": "P1:No Balancing/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.11e-16, CM OK"
+    },
+    {
+      "check": "P1:Random Oversampling: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P1:Random Oversampling: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:Random Oversampling: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:Random Oversampling/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.29e-09, CM OK"
+    },
+    {
+      "check": "P1:Random Oversampling/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 5.37e-08, CM OK"
+    },
+    {
+      "check": "P1:Random Oversampling/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.11e-16, CM OK"
+    },
+    {
+      "check": "P1:SMOTE: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P1:SMOTE: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:SMOTE: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:SMOTE/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.75e-08, CM OK"
+    },
+    {
+      "check": "P1:SMOTE/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 2.39e-08, CM OK"
+    },
+    {
+      "check": "P1:SMOTE/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.11e-16, CM OK"
+    },
+    {
+      "check": "P1:ADASYN: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P1:ADASYN: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:ADASYN: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1:ADASYN/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.90e-08, CM OK"
+    },
+    {
+      "check": "P1:ADASYN/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 7.64e-08, CM OK"
+    },
+    {
+      "check": "P1:ADASYN/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.67e-16, CM OK"
+    },
+    {
+      "check": "P2:Borderline-SMOTE: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P2:Borderline-SMOTE: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:Borderline-SMOTE: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:Borderline-SMOTE/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.61e-08, CM OK"
+    },
+    {
+      "check": "P2:Borderline-SMOTE/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.50e-08, CM OK"
+    },
+    {
+      "check": "P2:Borderline-SMOTE/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.41e-11, CM OK"
+    },
+    {
+      "check": "P2:KMeans-SMOTE: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P2:KMeans-SMOTE: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:KMeans-SMOTE: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:KMeans-SMOTE/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 9.72e-10, CM OK"
+    },
+    {
+      "check": "P2:KMeans-SMOTE/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.58e-08, CM OK"
+    },
+    {
+      "check": "P2:KMeans-SMOTE/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.39e-11, CM OK"
+    },
+    {
+      "check": "P2:SVM-SMOTE: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P2:SVM-SMOTE: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:SVM-SMOTE: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:SVM-SMOTE/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 1.28e-09, CM OK"
+    },
+    {
+      "check": "P2:SVM-SMOTE/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 2.95e-08, CM OK"
+    },
+    {
+      "check": "P2:SVM-SMOTE/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.13e-11, CM OK"
+    },
+    {
+      "check": "P2:SMOTE-N: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P2:SMOTE-N: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:SMOTE-N: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:SMOTE-N/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 6.09e-09, CM OK"
+    },
+    {
+      "check": "P2:SMOTE-N/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 8.27e-09, CM OK"
+    },
+    {
+      "check": "P2:SMOTE-N/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.37e-11, CM OK"
+    },
+    {
+      "check": "P2:No Balancing: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P2:No Balancing: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:No Balancing: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P2:No Balancing/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.53e-09, CM OK"
+    },
+    {
+      "check": "P2:No Balancing/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 7.36e-09, CM OK"
+    },
+    {
+      "check": "P2:No Balancing/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.99e-11, CM OK"
+    },
+    {
+      "check": "P3:Tomek Links: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P3:Tomek Links: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:Tomek Links: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:Tomek Links/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 3.82e-11, CM OK"
+    },
+    {
+      "check": "P3:Tomek Links/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 3.86e-11, CM OK"
+    },
+    {
+      "check": "P3:Tomek Links/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.66e-11, CM OK"
+    },
+    {
+      "check": "P3:ENN: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P3:ENN: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:ENN: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:ENN/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.67e-11, CM OK"
+    },
+    {
+      "check": "P3:ENN/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 3.98e-11, CM OK"
+    },
+    {
+      "check": "P3:ENN/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.97e-11, CM OK"
+    },
+    {
+      "check": "P3:SMOTE-Tomek: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P3:SMOTE-Tomek: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:SMOTE-Tomek: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:SMOTE-Tomek/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 3.39e-11, CM OK"
+    },
+    {
+      "check": "P3:SMOTE-Tomek/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.80e-11, CM OK"
+    },
+    {
+      "check": "P3:SMOTE-Tomek/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.98e-11, CM OK"
+    },
+    {
+      "check": "P3:SMOTE-ENN: 459,434 rows x 7 cols",
+      "pass": true,
+      "detail": "(459434, 7)"
+    },
+    {
+      "check": "P3:SMOTE-ENN: y_true identical to frozen test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:SMOTE-ENN: columns",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P3:SMOTE-ENN/LogisticRegression: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.95e-11, CM OK"
+    },
+    {
+      "check": "P3:SMOTE-ENN/RandomForest: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.70e-11, CM OK"
+    },
+    {
+      "check": "P3:SMOTE-ENN/XGBoost: CSV row reproduced from parquet",
+      "pass": true,
+      "detail": "max metric diff 4.10e-11, CM OK"
+    },
+    {
+      "check": "baseline replication LogisticRegression: bit-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "baseline replication RandomForest: bit-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "baseline replication XGBoost within cross-machine tolerance",
+      "pass": true,
+      "detail": "diff 1.91e-03, 1238 flips"
+    }
+  ]
+}

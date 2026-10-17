@@ -7,3 +7,8 @@ __pycache__/
 # Local scratch
 P2_Advanced_Oversampling/pilot/
 *.tmp
+
+# OS cruft
+desktop.ini
+Thumbs.db
+.DS_Store

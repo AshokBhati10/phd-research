@@ -1,0 +1,119 @@
+[
+  {
+    "technique": "No Balancing",
+    "person": "P1",
+    "family": "0. Baseline",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\07_combined_results_audit\\combined_results_2015_2024.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\03_baseline_audit\\test_predictions_2015_2024.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "Random Oversampling",
+    "person": "P1",
+    "family": "A. Basic oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\07_combined_results_audit\\combined_results_2015_2024.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\04_ros_audit\\test_predictions_2015_2024.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "SMOTE",
+    "person": "P1",
+    "family": "A. Basic oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\07_combined_results_audit\\combined_results_2015_2024.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\05_smote_audit\\test_predictions_2015_2024.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "ADASYN",
+    "person": "P1",
+    "family": "A. Basic oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\07_combined_results_audit\\combined_results_2015_2024.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\06_adasyn_audit\\test_predictions_2015_2024.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "Borderline-SMOTE",
+    "person": "P2",
+    "family": "B. Advanced oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\results_person2.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\test_predictions_borderline_smote.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "KMeans-SMOTE",
+    "person": "P2",
+    "family": "B. Advanced oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\results_person2.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\test_predictions_kmeans_smote.parquet",
+    "caveat": "non-default params required (kmeans_estimator=100, cluster_balance_threshold=0.2)",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "SVM-SMOTE",
+    "person": "P2",
+    "family": "B. Advanced oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\results_person2.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\test_predictions_svm_smote.parquet",
+    "caveat": "trained on 50k subsample (O(n^2) SVM fit); out_step extrapolation",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "SMOTE-N",
+    "person": "P2",
+    "family": "B. Advanced oversampling",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\results_person2.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\test_predictions_smoten.parquet",
+    "caveat": "trained on 50k subsample (O(n^2) memory); categorical-native generation",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "No Balancing",
+    "person": "P2",
+    "family": "0. Baseline (replication)",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\results_baseline_no_balancing.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P2_Advanced_Oversampling\\results\\test_predictions_no_balancing.parquet",
+    "caveat": "replication of P1's baseline; LR/RF bit-identical, XGB ~2e-3 cross-machine",
+    "role": "replication evidence (not a table row)"
+  },
+  {
+    "technique": "Tomek Links",
+    "person": "P3",
+    "family": "C. Cleaning & hybrid",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\results_person3.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\test_predictions_tomek.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "ENN",
+    "person": "P3",
+    "family": "C. Cleaning & hybrid",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\results_person3.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\test_predictions_enn.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "SMOTE-Tomek",
+    "person": "P3",
+    "family": "C. Cleaning & hybrid",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\results_person3.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\test_predictions_smote_tomek.parquet",
+    "caveat": "",
+    "role": "combined-table row"
+  },
+  {
+    "technique": "SMOTE-ENN",
+    "person": "P3",
+    "family": "C. Cleaning & hybrid",
+    "results_csv": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\results_person3.csv",
+    "predictions": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P3_Advanced_Resampling\\results\\test_predictions_smote_enn.parquet",
+    "caveat": "staged two-stage implementation (documented equivalent)",
+    "role": "combined-table row"
+  }
+]

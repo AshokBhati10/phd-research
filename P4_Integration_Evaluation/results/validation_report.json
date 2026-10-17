@@ -1,0 +1,188 @@
+{
+  "generated_at_utc": "2026-10-17T19:23:24.742703+00:00",
+  "passed": 36,
+  "failed": 0,
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "gate 1 (input verification) all pass",
+      "pass": true,
+      "detail": "82/82"
+    },
+    {
+      "check": "combined table has 36 rows",
+      "pass": true,
+      "detail": "36"
+    },
+    {
+      "check": "12 canonical techniques present",
+      "pass": true,
+      "detail": "12 techniques"
+    },
+    {
+      "check": "3 rows per technique",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "source columns populated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "caveats recorded for dagger techniques",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "McNemar matrix has 198 rows",
+      "pass": true,
+      "detail": "198"
+    },
+    {
+      "check": "66 pairs per classifier",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Holm p-values monotone with raw p",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "no p_holm reported as tiny when raw is 1",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "figure 01_f1_headline (png+pdf)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "figure 02_accuracy_recall_pareto (png+pdf)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "figure 03_auc_ranking_quality (png+pdf)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "figure 04_resampling_mechanics (png+pdf)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "figure 05_family_champion_curves (png+pdf)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "figure 06_metric_heatmap (png+pdf)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "workbook exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "workbook sheets complete",
+      "pass": true,
+      "detail": "['AUC_bootstrap_CIs', 'Combined_results', 'Fairness_register', 'Family_summary', 'Mean_ranks', 'Overview', 'Resampling_effects', 'Stat_tests_full', 'Stat_tests_summary', 'Traceability', 'Winners_tradeoffs']"
+    },
+    {
+      "check": "workbook Combined_results has 37 rows (header + 36)",
+      "pass": true,
+      "detail": "37"
+    },
+    {
+      "check": "report exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report embeds generated main results table",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report main results data rows match generation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report embeds generated family summary table",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report family summary data rows match generation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report embeds generated resampling effects table",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report resampling effects data rows match generation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report references figure 01_f1_headline",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report references figure 02_accuracy_recall_pareto",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report references figure 03_auc_ranking_quality",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report references figure 04_resampling_mechanics",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report references figure 05_family_champion_curves",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report references figure 06_metric_heatmap",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report states the 36-row provenance",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report documents the test fingerprint",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "report includes limitations section",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "P1/P2/P3 folders untouched in git",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+Family,Person,Technique,Display,Train_No_before,Train_Yes_before,Train_No_after,Train_Yes_after,Rows_added,Rows_removed,Final_train_size,Net_change,Train_source,Class_counts_source
+Baseline,P1,No Balancing,No Balancing,1524272,313462,1524272,313462,0,0,1837734,0,"full corrected train split (1,837,734 rows)",class_distribution_2015_2024.json
+Basic oversampling,P1,Random Oversampling,Random Oversampling,1524272,313462,1524272,1524272,1210810,0,3048544,1210810,"full corrected train split (1,837,734 rows)",class_distribution_2015_2024.json
+Basic oversampling,P1,SMOTE,SMOTE,1524272,313462,1524272,1524272,1210810,0,3048544,1210810,"full corrected train split (1,837,734 rows)",class_distribution_2015_2024.json
+Basic oversampling,P1,ADASYN,ADASYN,1524272,313462,1524272,1514930,1201468,0,3039202,1201468,"full corrected train split (1,837,734 rows)",class_distribution_2015_2024.json
+Advanced oversampling,P2,Borderline-SMOTE,Borderline-SMOTE,1524272,313462,1524272,1524272,1210810,0,3048544,1210810,"full corrected train split (1,837,734 rows)",class_distributions.json
+Advanced oversampling,P2,KMeans-SMOTE,KMeans-SMOTE,1524272,313462,1524272,1524290,1210828,0,3048562,1210828,"full corrected train split (1,837,734 rows)",class_distributions.json
+Advanced oversampling,P2,SVM-SMOTE,SVM-SMOTE †,41472,8528,41472,41472,32944,0,82944,32944,"shared stratified 50k subsample (41,472/8,528, seed 42)",class_distributions.json
+Advanced oversampling,P2,SMOTE-N,SMOTE-N †,41472,8528,41472,41472,32944,0,82944,32944,"shared stratified 50k subsample (41,472/8,528, seed 42)",class_distributions.json
+Cleaning & hybrid,P3,Tomek Links,Tomek Links,1524272,313462,1517111,313462,0,7161,1830573,-7161,"full corrected train split (1,837,734 rows); cleaning removes majority/overlap rows",class_distributions.json
+Cleaning & hybrid,P3,ENN,ENN,1524272,313462,1053387,313462,0,470885,1366849,-470885,"full corrected train split (1,837,734 rows); cleaning removes majority/overlap rows",class_distributions.json
+Cleaning & hybrid,P3,SMOTE-Tomek,SMOTE-Tomek,1524272,313462,1524272,1521727,1208265,0,3045999,1208265,"full corrected train split (1,837,734 rows); cleaning removes majority/overlap rows",class_distributions.json
+Cleaning & hybrid,P3,SMOTE-ENN,SMOTE-ENN,1524272,313462,1524272,425916,112454,0,1950188,112454,"full corrected train split (1,837,734 rows); cleaning removes majority/overlap rows",class_distributions.json
