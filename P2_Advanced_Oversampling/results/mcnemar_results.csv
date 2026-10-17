@@ -1,0 +1,91 @@
+Model,Group_A,Tech_A,Group_B,Tech_B,A_right_B_wrong,A_wrong_B_right,chi2,p_value,significant_bonf
+LogisticRegression,P2,P2: Borderline-SMOTE,P2,P2: KMeans-SMOTE,20717,58589,18085.496,0.0,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P2,P2: SVM-SMOTE,8667,29941,11722.521,0.0,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P2,P2: SMOTE-N,22642,28222,612.15,3.811630031280937e-135,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P2,P2: No Balancing,44729,108914,26813.55,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P2,P2: SVM-SMOTE,36066,19468,4960.81,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P2,P2: SMOTE-N,61732,29440,11437.429,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P2,P2: No Balancing,26539,52852,8721.064,0.0,True
+LogisticRegression,P2,P2: SVM-SMOTE,P2,P2: SMOTE-N,33210,17516,4855.53,0.0,True
+LogisticRegression,P2,P2: SVM-SMOTE,P2,P2: No Balancing,36348,79259,15927.703,0.0,True
+LogisticRegression,P2,P2: SMOTE-N,P2,P2: No Balancing,38606,97211,25288.042,0.0,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P1,P1: No Balancing,44729,108914,26813.55,0.0,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P1,P1: Random Oversampling,8555,11168,346.183,2.8730264068530623e-77,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P1,P1: SMOTE,1360,4201,1451.408,0.0,True
+LogisticRegression,P2,P2: Borderline-SMOTE,P1,P1: ADASYN,7766,2198,3111.464,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P1,P1: No Balancing,26539,52852,8721.064,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P1,P1: Random Oversampling,55945,20686,16223.161,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P1,P1: SMOTE,55383,20352,16203.485,0.0,True
+LogisticRegression,P2,P2: KMeans-SMOTE,P1,P1: ADASYN,65476,22036,21563.141,0.0,True
+LogisticRegression,P2,P2: SVM-SMOTE,P1,P1: No Balancing,36348,79259,15927.703,0.0,True
+LogisticRegression,P2,P2: SVM-SMOTE,P1,P1: Random Oversampling,30946,12285,8055.167,0.0,True
+LogisticRegression,P2,P2: SVM-SMOTE,P1,P1: SMOTE,26164,7731,10024.354,0.0,True
+LogisticRegression,P2,P2: SVM-SMOTE,P1,P1: ADASYN,36494,9652,15613.335,0.0,True
+LogisticRegression,P2,P2: SMOTE-N,P1,P1: No Balancing,38606,97211,25288.042,0.0,True
+LogisticRegression,P2,P2: SMOTE-N,P1,P1: Random Oversampling,31127,28160,148.483,3.7207811572418257e-34,True
+LogisticRegression,P2,P2: SMOTE-N,P1,P1: SMOTE,26332,23593,150.268,1.5150278350823914e-34,True
+LogisticRegression,P2,P2: SMOTE-N,P1,P1: ADASYN,31089,19941,2435.389,0.0,True
+LogisticRegression,P2,P2: No Balancing,P1,P1: No Balancing,0,0,0.0,1.0,False
+LogisticRegression,P2,P2: No Balancing,P1,P1: Random Oversampling,106076,44504,25176.725,0.0,True
+LogisticRegression,P2,P2: No Balancing,P1,P1: SMOTE,105209,43865,25243.076,0.0,True
+LogisticRegression,P2,P2: No Balancing,P1,P1: ADASYN,115750,45997,30080.811,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P2,P2: KMeans-SMOTE,31806,93627,30469.143,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P2,P2: SVM-SMOTE,15505,55573,22587.082,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P2,P2: SMOTE-N,23333,50266,9855.929,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P2,P2: No Balancing,52831,131260,33413.41,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P2,P2: SVM-SMOTE,47927,26174,6385.784,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P2,P2: SMOTE-N,68528,33640,11913.442,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P2,P2: No Balancing,23042,39650,4399.695,0.0,True
+RandomForest,P2,P2: SVM-SMOTE,P2,P2: SMOTE-N,35028,21893,3031.012,0.0,True
+RandomForest,P2,P2: SVM-SMOTE,P2,P2: No Balancing,38137,76498,12836.972,0.0,True
+RandomForest,P2,P2: SMOTE-N,P2,P2: No Balancing,38268,89764,20712.306,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P1,P1: No Balancing,52831,131260,33413.41,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P1,P1: Random Oversampling,7921,17415,3557.627,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P1,P1: SMOTE,3632,12970,5252.273,0.0,True
+RandomForest,P2,P2: Borderline-SMOTE,P1,P1: ADASYN,9306,4755,1472.982,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P1,P1: No Balancing,23042,39650,4399.695,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P1,P1: Random Oversampling,82470,30143,24314.377,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P1,P1: SMOTE,82639,30156,24420.101,0.0,True
+RandomForest,P2,P2: KMeans-SMOTE,P1,P1: ADASYN,99210,32838,33360.917,0.0,True
+RandomForest,P2,P2: SVM-SMOTE,P1,P1: No Balancing,38137,76498,12836.972,0.0,True
+RandomForest,P2,P2: SVM-SMOTE,P1,P1: Random Oversampling,46937,16363,14767.29,0.0,True
+RandomForest,P2,P2: SVM-SMOTE,P1,P1: SMOTE,44487,13757,16213.394,0.0,True
+RandomForest,P2,P2: SVM-SMOTE,P1,P1: ADASYN,60626,16007,25979.084,0.0,True
+RandomForest,P2,P2: SMOTE-N,P1,P1: No Balancing,38268,89764,20712.306,0.0,True
+RandomForest,P2,P2: SMOTE-N,P1,P1: Random Oversampling,46361,28922,4039.673,0.0,True
+RandomForest,P2,P2: SMOTE-N,P1,P1: SMOTE,42473,24878,4596.577,0.0,True
+RandomForest,P2,P2: SMOTE-N,P1,P1: ADASYN,53560,22076,13105.429,0.0,True
+RandomForest,P2,P2: No Balancing,P1,P1: No Balancing,0,0,0.0,1.0,False
+RandomForest,P2,P2: No Balancing,P1,P1: Random Oversampling,119945,51010,27796.989,0.0,True
+RandomForest,P2,P2: No Balancing,P1,P1: SMOTE,119546,50455,28079.636,0.0,True
+RandomForest,P2,P2: No Balancing,P1,P1: ADASYN,136579,53599,36206.503,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P2,P2: KMeans-SMOTE,31218,92763,30551.351,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P2,P2: SVM-SMOTE,14789,51106,20015.547,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P2,P2: SMOTE-N,31685,54222,5912.398,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P2,P2: No Balancing,49919,127934,34221.184,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P2,P2: SVM-SMOTE,51428,26200,8198.743,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P2,P2: SMOTE-N,72974,33966,14228.764,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P2,P2: No Balancing,20994,37464,4640.27,0.0,True
+XGBoost,P2,P2: SVM-SMOTE,P2,P2: SMOTE-N,38397,24617,3013.432,0.0,True
+XGBoost,P2,P2: SVM-SMOTE,P2,P2: No Balancing,36274,77972,15219.117,0.0,True
+XGBoost,P2,P2: SMOTE-N,P2,P2: No Balancing,35075,90553,24499.383,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P1,P1: No Balancing,49919,127988,34258.173,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P1,P1: Random Oversampling,9537,17526,2358.354,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P1,P1: SMOTE,2928,11442,5044.412,0.0,True
+XGBoost,P2,P2: Borderline-SMOTE,P1,P1: ADASYN,10417,4561,2289.54,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P1,P1: No Balancing,20989,37513,4667.235,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P1,P1: Random Oversampling,83375,29819,25339.198,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P1,P1: SMOTE,82693,29662,25030.368,0.0,True
+XGBoost,P2,P2: KMeans-SMOTE,P1,P1: ADASYN,99688,32287,34422.389,0.0,True
+XGBoost,P2,P2: SVM-SMOTE,P1,P1: No Balancing,36274,78026,15251.352,0.0,True
+XGBoost,P2,P2: SVM-SMOTE,P1,P1: Random Oversampling,45609,17281,12759.987,0.0,True
+XGBoost,P2,P2: SVM-SMOTE,P1,P1: SMOTE,40925,13122,14302.492,0.0,True
+XGBoost,P2,P2: SVM-SMOTE,P1,P1: ADASYN,57195,15022,24628.023,0.0,True
+XGBoost,P2,P2: SMOTE-N,P1,P1: No Balancing,35086,90618,24532.259,0.0,True
+XGBoost,P2,P2: SMOTE-N,P1,P1: Random Oversampling,51708,37160,2381.558,0.0,True
+XGBoost,P2,P2: SMOTE-N,P1,P1: SMOTE,46795,32772,2471.433,0.0,True
+XGBoost,P2,P2: SMOTE-N,P1,P1: ADASYN,57428,29035,9323.785,0.0,True
+XGBoost,P2,P2: No Balancing,P1,P1: No Balancing,592,646,2.355,0.12484890007300382,False
+XGBoost,P2,P2: No Balancing,P1,P1: Random Oversampling,118856,48830,29242.994,0.0,True
+XGBoost,P2,P2: No Balancing,P1,P1: SMOTE,117216,47715,29287.332,0.0,True
+XGBoost,P2,P2: No Balancing,P1,P1: ADASYN,134480,50609,38005.201,0.0,True

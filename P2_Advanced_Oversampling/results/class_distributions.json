@@ -1,0 +1,79 @@
+{
+  "No Balancing": {
+    "technique": "No Balancing",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "added_samples": 0,
+    "final_train_size": 1837734,
+    "rows_removed": 0,
+    "resample_sec": 0.0
+  },
+  "Borderline-SMOTE": {
+    "technique": "Borderline-SMOTE",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 1524272
+    },
+    "added_samples": 1210810,
+    "final_train_size": 3048544,
+    "rows_removed": 0,
+    "resample_sec": 609.1
+  },
+  "KMeans-SMOTE": {
+    "technique": "KMeans-SMOTE",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 1524290
+    },
+    "added_samples": 1210828,
+    "final_train_size": 3048562,
+    "rows_removed": 0,
+    "resample_sec": 111.6
+  },
+  "SVM-SMOTE": {
+    "technique": "SVM-SMOTE",
+    "train_source": "shared stratified 50k subsample",
+    "train_before": {
+      "0": 41472,
+      "1": 8528
+    },
+    "train_after": {
+      "0": 41472,
+      "1": 41472
+    },
+    "added_samples": 32944,
+    "final_train_size": 82944,
+    "rows_removed": 0,
+    "resample_sec": 116.6
+  },
+  "SMOTE-N": {
+    "technique": "SMOTE-N",
+    "train_source": "shared stratified 50k subsample",
+    "train_before": {
+      "0": 41472,
+      "1": 8528
+    },
+    "train_after": {
+      "0": 41472,
+      "1": 41472
+    },
+    "added_samples": 32944,
+    "final_train_size": 82944,
+    "rows_removed": 0,
+    "resample_sec": 44.0
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "scope": "BRFSS 2015-2024 (YEAR 2014 excluded), corrected Person 1 scope",
+  "source": "C:\\Users\\ashok\\Documents\\ML\\phd-research\\P1_Basic_Oversampling\\11_Audit_2015_2024_Rerun\\02_preprocessing_audit",
+  "target": "DIABETE4",
+  "features": [
+    "EXERANY2",
+    "_MICHD",
+    "ASTHMA3",
+    "ADDEPEV3",
+    "CHCKDNY2",
+    "MARITAL",
+    "_EDUCAG",
+    "DRNKANY6",
+    "_AGEG5YR",
+    "_BMI5CAT",
+    "_INCOMG1",
+    "_RFSMOK3",
+    "GENHLTH",
+    "HAVARTH4",
+    "SEXVAR"
+  ],
+  "n_features": 15,
+  "n_train": 1837734,
+  "n_test": 459434,
+  "train_counts": {
+    "0": 1524272,
+    "1": 313462
+  },
+  "test_counts": {
+    "0": 381068,
+    "1": 78366
+  },
+  "test_fingerprint_sha256": "70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11",
+  "expected_test_fingerprint": "70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11",
+  "fingerprint_match_person3": true,
+  "split_protocol": "stratified 80/20, random_state=42, shuffle=True (Person 1)",
+  "subsample_50k": {
+    "n_rows": 50000,
+    "counts": {
+      "0": 41472,
+      "1": 8528
+    },
+    "seed": 42,
+    "method": "train_test_split(train_size=50000, stratify=y, random_state=42)",
+    "used_by": [
+      "SVM-SMOTE",
+      "SMOTE-N"
+    ],
+    "fingerprint_sha256": "a1676dc5ffb7904c145d5553305af7c088bb3cb501905c933ecb281d7aa307ed"
+  },
+  "random_state": 42,
+  "generated_at_utc": "2026-10-17T16:54:12.638061+00:00"
+}

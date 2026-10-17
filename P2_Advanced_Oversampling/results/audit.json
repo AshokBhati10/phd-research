@@ -1,0 +1,680 @@
+{
+  "No Balancing": {
+    "technique": "No Balancing",
+    "dtype": "int64",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "added_samples": 0,
+    "rows_removed": 0,
+    "final_train_size": 1837734,
+    "all_finite": true,
+    "no_nan": true,
+    "synthetic_checks": null,
+    "resample_sec": 0.0,
+    "scaled_on": "resampled train (LogisticRegression only)"
+  },
+  "Borderline-SMOTE": {
+    "technique": "Borderline-SMOTE",
+    "dtype": "int64",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 1524272
+    },
+    "added_samples": 1210810,
+    "rows_removed": 0,
+    "final_train_size": 3048544,
+    "all_finite": true,
+    "no_nan": true,
+    "synthetic_checks": {
+      "n_synthetic_rows": 1210810,
+      "finite": true,
+      "out_of_range_values": 0,
+      "unobserved_code_values": 0,
+      "fractional_values": 0,
+      "per_feature": {
+        "EXERANY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_MICHD": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "ASTHMA3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "ADDEPEV3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "CHCKDNY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "MARITAL": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 1,
+          "synthetic_max": 6,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_EDUCAG": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 1,
+          "synthetic_max": 4,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "DRNKANY6": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_AGEG5YR": {
+          "observed_min": 5,
+          "observed_max": 14,
+          "synthetic_min": 5,
+          "synthetic_max": 14,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_BMI5CAT": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 1,
+          "synthetic_max": 4,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_INCOMG1": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 1,
+          "synthetic_max": 6,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_RFSMOK3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "GENHLTH": {
+          "observed_min": 1,
+          "observed_max": 5,
+          "synthetic_min": 1,
+          "synthetic_max": 5,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "HAVARTH4": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "SEXVAR": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        }
+      }
+    },
+    "original_rows_preserved": true,
+    "resample_sec": 609.1,
+    "scaled_on": "resampled train (LogisticRegression only)"
+  },
+  "KMeans-SMOTE": {
+    "technique": "KMeans-SMOTE",
+    "dtype": "int64",
+    "train_before": {
+      "0": 1524272,
+      "1": 313462
+    },
+    "train_after": {
+      "0": 1524272,
+      "1": 1524290
+    },
+    "added_samples": 1210828,
+    "rows_removed": 0,
+    "final_train_size": 3048562,
+    "all_finite": true,
+    "no_nan": true,
+    "synthetic_checks": {
+      "n_synthetic_rows": 1210828,
+      "finite": true,
+      "out_of_range_values": 0,
+      "unobserved_code_values": 0,
+      "fractional_values": 0,
+      "per_feature": {
+        "EXERANY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_MICHD": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "ASTHMA3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "ADDEPEV3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "CHCKDNY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "MARITAL": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 1,
+          "synthetic_max": 6,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_EDUCAG": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 1,
+          "synthetic_max": 4,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "DRNKANY6": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_AGEG5YR": {
+          "observed_min": 5,
+          "observed_max": 14,
+          "synthetic_min": 5,
+          "synthetic_max": 14,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_BMI5CAT": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 1,
+          "synthetic_max": 4,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_INCOMG1": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 1,
+          "synthetic_max": 6,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_RFSMOK3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "GENHLTH": {
+          "observed_min": 1,
+          "observed_max": 5,
+          "synthetic_min": 1,
+          "synthetic_max": 5,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "HAVARTH4": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "SEXVAR": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        }
+      }
+    },
+    "original_rows_preserved": true,
+    "resample_sec": 111.6,
+    "scaled_on": "resampled train (LogisticRegression only)"
+  },
+  "SVM-SMOTE": {
+    "technique": "SVM-SMOTE",
+    "dtype": "int64",
+    "train_before": {
+      "0": 41472,
+      "1": 8528
+    },
+    "train_after": {
+      "0": 41472,
+      "1": 41472
+    },
+    "added_samples": 32944,
+    "rows_removed": 0,
+    "final_train_size": 82944,
+    "all_finite": true,
+    "no_nan": true,
+    "synthetic_checks": {
+      "n_synthetic_rows": 32944,
+      "finite": true,
+      "out_of_range_values": 12314,
+      "unobserved_code_values": 12314,
+      "fractional_values": 0,
+      "per_feature": {
+        "EXERANY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 923,
+          "unobserved_codes": 923,
+          "fractional_values": 0
+        },
+        "_MICHD": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 1784,
+          "unobserved_codes": 1784,
+          "fractional_values": 0
+        },
+        "ASTHMA3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 1720,
+          "unobserved_codes": 1720,
+          "fractional_values": 0
+        },
+        "ADDEPEV3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 1248,
+          "unobserved_codes": 1248,
+          "fractional_values": 0
+        },
+        "CHCKDNY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 2109,
+          "unobserved_codes": 2109,
+          "fractional_values": 0
+        },
+        "MARITAL": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 0,
+          "synthetic_max": 6,
+          "out_of_range": 316,
+          "unobserved_codes": 316,
+          "fractional_values": 0
+        },
+        "_EDUCAG": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 0,
+          "synthetic_max": 4,
+          "out_of_range": 677,
+          "unobserved_codes": 677,
+          "fractional_values": 0
+        },
+        "DRNKANY6": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 621,
+          "unobserved_codes": 621,
+          "fractional_values": 0
+        },
+        "_AGEG5YR": {
+          "observed_min": 5,
+          "observed_max": 14,
+          "synthetic_min": 4,
+          "synthetic_max": 14,
+          "out_of_range": 12,
+          "unobserved_codes": 12,
+          "fractional_values": 0
+        },
+        "_BMI5CAT": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 0,
+          "synthetic_max": 4,
+          "out_of_range": 15,
+          "unobserved_codes": 15,
+          "fractional_values": 0
+        },
+        "_INCOMG1": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 0,
+          "synthetic_max": 6,
+          "out_of_range": 617,
+          "unobserved_codes": 617,
+          "fractional_values": 0
+        },
+        "_RFSMOK3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 387,
+          "unobserved_codes": 387,
+          "fractional_values": 0
+        },
+        "GENHLTH": {
+          "observed_min": 1,
+          "observed_max": 5,
+          "synthetic_min": 0,
+          "synthetic_max": 5,
+          "out_of_range": 14,
+          "unobserved_codes": 14,
+          "fractional_values": 0
+        },
+        "HAVARTH4": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 711,
+          "unobserved_codes": 711,
+          "fractional_values": 0
+        },
+        "SEXVAR": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 0,
+          "synthetic_max": 2,
+          "out_of_range": 1160,
+          "unobserved_codes": 1160,
+          "fractional_values": 0
+        }
+      }
+    },
+    "original_rows_preserved": true,
+    "resample_sec": 116.6,
+    "scaled_on": "resampled train (LogisticRegression only)",
+    "train_source": "shared stratified 50k subsample"
+  },
+  "SMOTE-N": {
+    "technique": "SMOTE-N",
+    "dtype": "int64",
+    "train_before": {
+      "0": 41472,
+      "1": 8528
+    },
+    "train_after": {
+      "0": 41472,
+      "1": 41472
+    },
+    "added_samples": 32944,
+    "rows_removed": 0,
+    "final_train_size": 82944,
+    "all_finite": true,
+    "no_nan": true,
+    "synthetic_checks": {
+      "n_synthetic_rows": 32944,
+      "finite": true,
+      "out_of_range_values": 0,
+      "unobserved_code_values": 0,
+      "fractional_values": 0,
+      "per_feature": {
+        "EXERANY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_MICHD": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "ASTHMA3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "ADDEPEV3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "CHCKDNY2": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "MARITAL": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 1,
+          "synthetic_max": 6,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_EDUCAG": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 1,
+          "synthetic_max": 4,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "DRNKANY6": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_AGEG5YR": {
+          "observed_min": 5,
+          "observed_max": 14,
+          "synthetic_min": 5,
+          "synthetic_max": 14,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_BMI5CAT": {
+          "observed_min": 1,
+          "observed_max": 4,
+          "synthetic_min": 1,
+          "synthetic_max": 4,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_INCOMG1": {
+          "observed_min": 1,
+          "observed_max": 6,
+          "synthetic_min": 1,
+          "synthetic_max": 6,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "_RFSMOK3": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "GENHLTH": {
+          "observed_min": 1,
+          "observed_max": 5,
+          "synthetic_min": 1,
+          "synthetic_max": 5,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "HAVARTH4": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        },
+        "SEXVAR": {
+          "observed_min": 1,
+          "observed_max": 2,
+          "synthetic_min": 1,
+          "synthetic_max": 2,
+          "out_of_range": 0,
+          "unobserved_codes": 0,
+          "fractional_values": 0
+        }
+      }
+    },
+    "original_rows_preserved": true,
+    "resample_sec": 44.0,
+    "scaled_on": "resampled train (LogisticRegression only)",
+    "train_source": "shared stratified 50k subsample"
+  }
+}

@@ -1,0 +1,608 @@
+{
+  "generated_at_utc": "2026-10-17T18:39:59.703342+00:00",
+  "passed": 119,
+  "failed": 0,
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "manifest test fingerprint equals Person 3 reference",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "recomputed split fingerprint matches reference",
+      "pass": true,
+      "detail": "70e180c659c74efb..."
+    },
+    {
+      "check": "results_person2.csv exists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "results header exactly matches P1/P3 schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "results CSV has 12 rows",
+      "pass": true,
+      "detail": "12 rows"
+    },
+    {
+      "check": "all 12 (technique, model) pairs present exactly once",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "metrics formatted to 10 decimals",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "timing formatted to 1 decimal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "confusion totals equal frozen test size",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "baseline CSV exists (3 rows)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_no_balancing.parquet: rows == 459434",
+      "pass": true,
+      "detail": "459434"
+    },
+    {
+      "check": "test_predictions_no_balancing.parquet: columns match P1/P3 schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_no_balancing.parquet: y_true equals frozen y_test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_no_balancing.parquet: dtypes y_true=int64, pred=int8, proba=float32",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_no_balancing.parquet: preds binary, probas finite in [0,1]",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_borderline_smote.parquet: rows == 459434",
+      "pass": true,
+      "detail": "459434"
+    },
+    {
+      "check": "test_predictions_borderline_smote.parquet: columns match P1/P3 schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_borderline_smote.parquet: y_true equals frozen y_test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_borderline_smote.parquet: dtypes y_true=int64, pred=int8, proba=float32",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_borderline_smote.parquet: preds binary, probas finite in [0,1]",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_kmeans_smote.parquet: rows == 459434",
+      "pass": true,
+      "detail": "459434"
+    },
+    {
+      "check": "test_predictions_kmeans_smote.parquet: columns match P1/P3 schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_kmeans_smote.parquet: y_true equals frozen y_test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_kmeans_smote.parquet: dtypes y_true=int64, pred=int8, proba=float32",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_kmeans_smote.parquet: preds binary, probas finite in [0,1]",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_svm_smote.parquet: rows == 459434",
+      "pass": true,
+      "detail": "459434"
+    },
+    {
+      "check": "test_predictions_svm_smote.parquet: columns match P1/P3 schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_svm_smote.parquet: y_true equals frozen y_test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_svm_smote.parquet: dtypes y_true=int64, pred=int8, proba=float32",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_svm_smote.parquet: preds binary, probas finite in [0,1]",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_smoten.parquet: rows == 459434",
+      "pass": true,
+      "detail": "459434"
+    },
+    {
+      "check": "test_predictions_smoten.parquet: columns match P1/P3 schema",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_smoten.parquet: y_true equals frozen y_test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_smoten.parquet: dtypes y_true=int64, pred=int8, proba=float32",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test_predictions_smoten.parquet: preds binary, probas finite in [0,1]",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/LogisticRegression: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/LogisticRegression: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/LogisticRegression: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/LogisticRegression: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/RandomForest: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/RandomForest: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/RandomForest: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/RandomForest: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/XGBoost: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/XGBoost: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/XGBoost: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "No Balancing/XGBoost: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/LogisticRegression: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/LogisticRegression: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/LogisticRegression: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/LogisticRegression: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/RandomForest: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/RandomForest: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/RandomForest: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/RandomForest: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/XGBoost: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/XGBoost: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/XGBoost: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE/XGBoost: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/LogisticRegression: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/LogisticRegression: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/LogisticRegression: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/LogisticRegression: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/RandomForest: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/RandomForest: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/RandomForest: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/RandomForest: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/XGBoost: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/XGBoost: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/XGBoost: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE/XGBoost: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/LogisticRegression: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/LogisticRegression: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/LogisticRegression: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/LogisticRegression: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/RandomForest: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/RandomForest: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/RandomForest: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/RandomForest: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/XGBoost: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/XGBoost: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/XGBoost: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE/XGBoost: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/LogisticRegression: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/LogisticRegression: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/LogisticRegression: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/LogisticRegression: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/RandomForest: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/RandomForest: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/RandomForest: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/RandomForest: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/XGBoost: TN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/XGBoost: FP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/XGBoost: FN matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N/XGBoost: TP matches parquet",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "metrics recomputable from saved float32 predictions (<1e-6)",
+      "pass": true,
+      "detail": "max diff 2.95e-08 (float32 storage, same as P1/P3)"
+    },
+    {
+      "check": "class_distributions has 5 entries",
+      "pass": true,
+      "detail": "['Borderline-SMOTE', 'KMeans-SMOTE', 'No Balancing', 'SMOTE-N', 'SVM-SMOTE']"
+    },
+    {
+      "check": "Borderline-SMOTE: class distribution consistent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE: synthetic rows finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "Borderline-SMOTE: no values outside observed range",
+      "pass": true,
+      "detail": "out_of_range=0"
+    },
+    {
+      "check": "Borderline-SMOTE: no fractional values",
+      "pass": true,
+      "detail": "fractional=0"
+    },
+    {
+      "check": "KMeans-SMOTE: class distribution consistent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE: synthetic rows finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "KMeans-SMOTE: no values outside observed range",
+      "pass": true,
+      "detail": "out_of_range=0"
+    },
+    {
+      "check": "KMeans-SMOTE: no fractional values",
+      "pass": true,
+      "detail": "fractional=0"
+    },
+    {
+      "check": "SVM-SMOTE: class distribution consistent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE: synthetic rows finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SVM-SMOTE: out-of-range values are the documented extrapolation",
+      "pass": true,
+      "detail": "out_of_range=12314 of 494160 synthetic values (all code 0 / one below observed min; SVMSMOTE out_step=0.5)"
+    },
+    {
+      "check": "SVM-SMOTE: no fractional values",
+      "pass": true,
+      "detail": "fractional=0"
+    },
+    {
+      "check": "SMOTE-N: class distribution consistent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N: synthetic rows finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "SMOTE-N: no values outside observed range",
+      "pass": true,
+      "detail": "out_of_range=0"
+    },
+    {
+      "check": "SMOTE-N: no fractional values",
+      "pass": true,
+      "detail": "fractional=0"
+    },
+    {
+      "check": "P2 baseline reproduces P1 LogisticRegression baseline (bit-identical)",
+      "pass": true,
+      "detail": "max diff 0.00e+00, flips 0"
+    },
+    {
+      "check": "P2 baseline reproduces P1 RandomForest baseline (bit-identical)",
+      "pass": true,
+      "detail": "max diff 0.00e+00, flips 0"
+    },
+    {
+      "check": "P2 baseline XGBoost within cross-machine tolerance (<5e-3)",
+      "pass": true,
+      "detail": "max metric diff 1.91e-03, 1238 label flips"
+    },
+    {
+      "check": "pilot determinism PASS (all 4 resamplers)",
+      "pass": true,
+      "detail": "Borderline-SMOTE=True, KMeans-SMOTE=True, SVM-SMOTE=True, SMOTE-N=True"
+    },
+    {
+      "check": "no YEAR column in features",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "feature count == 15",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "deviations_reported": [
+    "SVM-SMOTE: 12314 synthetic values (2.49%) outside the observed per-feature range (documented out_step=0.5 extrapolation); no fractional values; all other techniques = 0 out-of-range.",
+    "SVM-SMOTE: 12314 synthetic values use category codes not observed in the training split (reported, not hidden).",
+    "XGBoost hist training is not bit-reproducible across machines/thread counts: P2 vs P1 corrected baseline shows 1238 label flips and max metric diff 1.91e-03 (LR and RF are bit-identical). This is the P4 cross-machine noise floor."
+  ]
+}

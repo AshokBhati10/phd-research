@@ -1,0 +1,50 @@
+[2026-10-17T17:10:55.920230+00:00] === P2 experiments (full corrected 2015-2024 split) ===
+[2026-10-17T17:10:55.926474+00:00]   train (1837734, 15) {'0': 1524272, '1': 313462} | test (459434, 15) {'0': 381068, '1': 78366}
+[2026-10-17T17:10:55.926474+00:00]   test fingerprint 70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11
+[2026-10-17T17:10:55.928020+00:00] 
+=== No Balancing === [0.71 GB RSS]
+[2026-10-17T17:10:55.928343+00:00]   baseline: no resampling
+[2026-10-17T17:10:57.875809+00:00]   LogisticRegression: F1=0.2166 Recall=0.1354 ROC-AUC=0.7713 [1.4s] [0.75 GB RSS]
+[2026-10-17T17:11:32.063806+00:00]   RandomForest: F1=0.1531 Recall=0.0876 ROC-AUC=0.7775 [33.8s] [0.82 GB RSS]
+[2026-10-17T17:11:48.918574+00:00]   XGBoost: F1=0.2033 Recall=0.1232 ROC-AUC=0.7803 [16.5s] [0.82 GB RSS]
+[2026-10-17T17:11:49.049556+00:00]   wrote test_predictions_no_balancing.parquet (459,434 rows x 7 cols)
+[2026-10-17T17:11:49.423506+00:00] 
+=== Borderline-SMOTE === [0.59 GB RSS]
+[2026-10-17T17:21:58.498089+00:00]   resampled in 609.1s | 1,837,734 -> 3,048,544 | {'0': 1524272, '1': 1524272}
+[2026-10-17T17:22:01.846614+00:00]   LogisticRegression: F1=0.4399 Recall=0.7062 ROC-AUC=0.7686 [1.8s] [1.56 GB RSS]
+[2026-10-17T17:23:05.598058+00:00]   RandomForest: F1=0.4361 Recall=0.7618 ROC-AUC=0.7740 [63.4s] [1.62 GB RSS]
+[2026-10-17T17:23:33.361359+00:00]   XGBoost: F1=0.4367 Recall=0.7601 ROC-AUC=0.7734 [27.4s] [1.62 GB RSS]
+[2026-10-17T17:23:33.516343+00:00]   wrote test_predictions_borderline_smote.parquet (459,434 rows x 7 cols)
+[2026-10-17T17:23:33.664631+00:00] 
+=== KMeans-SMOTE === [0.59 GB RSS]
+[2026-10-17T17:25:25.324167+00:00]   resampled in 111.6s | 1,837,734 -> 3,048,562 | {'0': 1524272, '1': 1524290}
+[2026-10-17T17:25:29.498848+00:00]   LogisticRegression: F1=0.4189 Recall=0.4740 ROC-AUC=0.7569 [2.2s] [1.01 GB RSS]
+[2026-10-17T17:26:29.322535+00:00]   RandomForest: F1=0.3918 Recall=0.3803 ROC-AUC=0.7635 [59.5s] [1.08 GB RSS]
+[2026-10-17T17:26:56.550246+00:00]   XGBoost: F1=0.3986 Recall=0.3896 ROC-AUC=0.7701 [26.9s] [1.08 GB RSS]
+[2026-10-17T17:26:56.672991+00:00]   wrote test_predictions_kmeans_smote.parquet (459,434 rows x 7 cols)
+[2026-10-17T17:26:56.791479+00:00] 
+=== SVM-SMOTE === [0.6 GB RSS]
+[2026-10-17T18:14:46.022721+00:00] === P2 experiments (full corrected 2015-2024 split) ===
+[2026-10-17T18:14:46.032928+00:00]   train (1837734, 15) {'0': 1524272, '1': 313462} | test (459434, 15) {'0': 381068, '1': 78366}
+[2026-10-17T18:14:46.032928+00:00]   test fingerprint 70e180c659c74efbb6ac6368f5b061c9a94cf7efc10a707f52abcf29280b0d11
+[2026-10-17T18:14:46.036942+00:00] [skip] No Balancing: all 3 models + predictions already present
+[2026-10-17T18:14:46.036942+00:00] [skip] Borderline-SMOTE: all 3 models + predictions already present
+[2026-10-17T18:14:46.036942+00:00] [skip] KMeans-SMOTE: all 3 models + predictions already present
+[2026-10-17T18:14:46.038907+00:00] 
+=== SVM-SMOTE === [0.7 GB RSS]
+[2026-10-17T18:14:46.083484+00:00]   train source: shared stratified 50k subsample (50000, 15) {'0': 41472, '1': 8528}
+[2026-10-17T18:16:43.043155+00:00]   resampled in 116.6s | 50,000 -> 82,944 | {'0': 41472, '1': 41472}
+[2026-10-17T18:16:43.836902+00:00]   LogisticRegression: F1=0.4398 Recall=0.5992 ROC-AUC=0.7631 [0.2s] [0.78 GB RSS]
+[2026-10-17T18:16:46.089946+00:00]   RandomForest: F1=0.4405 Recall=0.5741 ROC-AUC=0.7676 [1.7s] [0.8 GB RSS]
+[2026-10-17T18:16:47.815599+00:00]   XGBoost: F1=0.4389 Recall=0.5857 ROC-AUC=0.7646 [1.2s] [0.81 GB RSS]
+[2026-10-17T18:16:48.123137+00:00]   wrote test_predictions_svm_smote.parquet (459,434 rows x 7 cols)
+[2026-10-17T18:16:48.694893+00:00] 
+=== SMOTE-N === [0.63 GB RSS]
+[2026-10-17T18:16:48.700676+00:00]   train source: shared stratified 50k subsample (50000, 15) {'0': 41472, '1': 8528}
+[2026-10-17T18:17:32.705426+00:00]   resampled in 44.0s | 50,000 -> 82,944 | {'0': 41472, '1': 41472}
+[2026-10-17T18:17:33.512611+00:00]   LogisticRegression: F1=0.4201 Recall=0.6255 ROC-AUC=0.7374 [0.2s] [1.25 GB RSS]
+[2026-10-17T18:17:35.766257+00:00]   RandomForest: F1=0.4130 Recall=0.5720 ROC-AUC=0.7383 [1.7s] [1.28 GB RSS]
+[2026-10-17T18:17:37.543955+00:00]   XGBoost: F1=0.4002 Recall=0.5583 ROC-AUC=0.7265 [1.3s] [1.29 GB RSS]
+[2026-10-17T18:17:37.781439+00:00]   wrote test_predictions_smoten.parquet (459,434 rows x 7 cols)
+[2026-10-17T18:17:38.137102+00:00]   post-run test fingerprint verified on disk
+[2026-10-17T18:17:38.146103+00:00] === complete: 12 / 12 (technique, model) rows ===
