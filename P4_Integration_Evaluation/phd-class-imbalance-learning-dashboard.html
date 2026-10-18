@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabetes Prediction &amp; Class Imbalance — PhD Research Learning Dashboard (P1–P4)</title>
+<style>
+  :root{
+    --ink:#1c2b3a; --muted:#5b6b7c; --line:#dfe6ee; --bg:#f7f9fc; --card:#ffffff;
+    --teal:#0e7c7b; --teal-d:#0a5f5e; --amber:#b7791f; --blue:#2563eb; --green:#4d7c0f;
+    --grey:#6b7280; --red:#b3402e; --soft-teal:#e6f4f3; --soft-amber:#faf3e3;
+    --soft-blue:#eaf1fe; --soft-green:#f0f6e4; --soft-grey:#f1f3f6;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px}
+  header.hero{background:linear-gradient(135deg,#123a5c 0%,#0e7c7b 100%);color:#fff;padding:3rem 1.5rem 2.5rem}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem}
+  .hero h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;margin:0 0 .6rem;line-height:1.25}
+  .hero p{margin:.35rem 0;opacity:.93}
+  .badges{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem}
+  .badge{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;
+         padding:.25rem .8rem;font-size:.82rem}
+  nav.sticky{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);
+             box-shadow:0 1px 4px rgba(0,0,0,.05)}
+  nav.sticky .wrap{display:flex;flex-wrap:wrap;gap:.15rem;padding:.4rem 1.25rem}
+  nav.sticky a{color:var(--muted);text-decoration:none;font-size:.85rem;padding:.45rem .7rem;border-radius:6px}
+  nav.sticky a:hover,nav.sticky a.active{background:var(--soft-teal);color:var(--teal-d)}
+  section{padding:2.2rem 0}
+  h2.sec{font-family:Georgia,serif;font-size:1.55rem;margin:0 0 .4rem;color:#123a5c}
+  .lede{color:var(--muted);margin:0 0 1.4rem;max-width:70ch}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.3rem 1.4rem;
+        margin:0 0 1.1rem;box-shadow:0 1px 2px rgba(20,40,60,.04)}
+  .card h3{margin:.1rem 0 .6rem;font-size:1.12rem}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+  .pill{display:inline-block;font-size:.75rem;font-weight:600;border-radius:999px;padding:.12rem .65rem;margin-right:.35rem}
+  .f-baseline{background:var(--soft-grey);color:var(--grey)}
+  .f-basic{background:var(--soft-teal);color:var(--teal-d)}
+  .f-advanced{background:var(--soft-blue);color:#1d4ed8}
+  .f-cleaning{background:var(--soft-green);color:#3f6212}
+  .tag-verified{background:#e8f5e9;color:#1b6b23;border:1px solid #bfe3c4}
+  .tag-interp{background:#fff4e0;color:#8a5a00;border:1px solid #f0d9a8}
+  details{border:1px solid var(--line);border-radius:10px;background:#fff;margin:.6rem 0;overflow:hidden}
+  details summary{cursor:pointer;padding:.85rem 1.1rem;font-weight:600;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:"▸ ";color:var(--teal)}
+  details[open] summary::before{content:"▾ "}
+  details .body{padding:0 1.1rem 1.1rem;color:#33475c}
+  .journey{display:flex;flex-wrap:wrap;gap:.6rem;align-items:stretch;margin:1rem 0}
+  .jnode{flex:1 1 120px;background:#fff;border:2px solid var(--line);border-radius:12px;padding:.8rem .7rem;
+         text-align:center;cursor:pointer;transition:.15s;min-width:110px}
+  .jnode:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+  .jnode.active{border-color:var(--teal);box-shadow:0 0 0 3px var(--soft-teal)}
+  .jnode .big{font-size:1.5rem}
+  .jnode b{display:block;margin-top:.3rem;font-size:.92rem}
+  .jnode small{color:var(--muted);font-size:.75rem}
+  .jarrow{align-self:center;color:var(--muted);font-size:1.3rem}
+  #journeyDetail{display:none}
+  #journeyDetail.show{display:block;animation:fade .25s}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  table.data{width:100%;border-collapse:collapse;font-size:.86rem;margin:.6rem 0}
+  table.data th,table.data td{padding:.5rem .55rem;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+  table.data th:first-child,table.data td:first-child{text-align:left}
+  table.data thead th{background:#f2f5f9;position:sticky;top:0;font-size:.8rem;color:#33475c}
+  table.data tbody tr:hover{background:#f8fbfd}
+  .best{background:#fff8e1 !important;font-weight:700}
+  .controls{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:.8rem 0}
+  .controls label{font-size:.85rem;color:var(--muted)}
+  .controls select{padding:.4rem .6rem;border:1px solid var(--line);border-radius:8px;font-size:.9rem;background:#fff}
+  .metric-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  @media(max-width:760px){.metric-cards{grid-template-columns:1fr}}
+  .metric-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.1rem}
+  .metric-card h4{margin:0 0 .3rem;font-size:1rem}
+  .metric-card h4 .abbr{background:var(--soft-teal);color:var(--teal-d);border-radius:6px;padding:.1rem .5rem;
+                        font-size:.8rem;margin-right:.4rem;cursor:help}
+  .cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;max-width:420px;margin:.8rem auto;font-size:.85rem}
+  .cm div{padding:.55rem;border-radius:6px;text-align:center}
+  .cm .h{background:#f2f5f9;font-weight:700}
+  .cm .tp{background:#d7ecda}.cm .tn{background:#d7ecda}.cm .fp{background:#fbe3df}.cm .fn{background:#fbe3df}
+  .bar-row{display:flex;align-items:center;gap:.6rem;margin:.35rem 0;font-size:.85rem}
+  .bar-label{width:170px;flex:none;text-align:right;color:#33475c}
+  .bar-track{flex:1;background:#eef2f7;border-radius:6px;height:20px;position:relative;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px;transition:width .5s}
+  .bar-val{width:64px;flex:none;font-variant-numeric:tabular-nums;font-weight:600}
+  .scatter-dot{cursor:pointer}
+  .scatter-dot:hover{stroke:#123a5c;stroke-width:2}
+  .tip{position:fixed;pointer-events:none;background:#123a5c;color:#fff;font-size:.8rem;padding:.45rem .7rem;
+       border-radius:8px;display:none;z-index:99;max-width:280px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+  .callout{border-left:4px solid var(--amber);background:var(--soft-amber);padding:.9rem 1.1rem;border-radius:0 10px 10px 0;margin:1rem 0}
+  .callout.teal{border-color:var(--teal);background:var(--soft-teal)}
+  .callout.blue{border-color:var(--blue);background:var(--soft-blue)}
+  .src{font-size:.78rem;color:var(--muted);background:#f6f8fb;border:1px dashed var(--line);border-radius:8px;
+       padding:.5rem .8rem;margin-top:.7rem}
+  .src code{font-size:.76rem;color:#33475c}
+  footer{background:#123a5c;color:#cfe0ee;padding:2rem 1.5rem;margin-top:2rem;font-size:.85rem}
+  footer a{color:#fff}
+  .kpi{display:flex;flex-wrap:wrap;gap:1rem;margin:1rem 0}
+  .kpi .k{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.8rem 1.1rem;flex:1 1 150px;text-align:center}
+  .kpi .k .n{font-size:1.5rem;font-weight:800;color:var(--teal-d)}
+  .kpi .k .l{font-size:.78rem;color:var(--muted)}
+  .legend{font-size:.82rem;color:var(--muted);margin:.5rem 0}
+  .people100{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;max-width:520px;margin:.8rem 0}
+  .people100 span{aspect-ratio:1;border-radius:3px;background:#c9d6e3}
+  .people100 span.yes{background:var(--red)}
+  ol.tight li,ul.tight li{margin-bottom:.45rem}
+  .finding{border-left:4px solid var(--teal)}
+  .finding h3 .fn{color:var(--teal-d)}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="tip" id="tip"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Diabetes Prediction with BRFSS Data:<br>Handling Class Imbalance (P1 → P4)</h1>
+    <p>An interactive learning dashboard for our PhD research project — from the research problem, through three technique families, to the integrated findings.</p>
+    <div class="badges">
+      <span class="badge">📊 BRFSS 2015–2024 · 2,297,168 rows</span>
+      <span class="badge">🧪 12 techniques × 3 classifiers = 36 experiments</span>
+      <span class="badge">✅ Validated: 82/82 &amp; 36/36 gates · 191/198 McNemar significant</span>
+      <span class="badge">🔗 Source: github.com/AshokBhati10/phd-research</span>
+    </div>
+  </div>
+</header>
+
+<nav class="sticky"><div class="wrap">
+  <a href="#start">Start here</a><a href="#journey">Journey</a><a href="#results">Results</a>
+  <a href="#metrics">Metrics</a><a href="#findings">Findings</a><a href="#validation">Validation</a>
+  <a href="#evidence">Evidence</a><a href="#supervisor">Supervisor takeaways</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ============ 1. START HERE ============ -->
+<section id="start">
+  <h2 class="sec">1. Start here — the big picture</h2>
+  <p class="lede">Everything below is written for someone unfamiliar with machine learning. Numbers marked <span class="pill tag-verified">verified</span> come straight from the repository artifacts; <span class="pill tag-interp">interpretation</span> marks our explanatory reading of them.</p>
+
+  <div class="card">
+    <h3>What is BRFSS?</h3>
+    <p><b>BRFSS</b> (Behavioral Risk Factor Surveillance System) is a large, ongoing telephone health survey run by the US CDC. Each year it interviews hundreds of thousands of American adults about their health — exercise, smoking, diet, chronic conditions, and more. Our project uses the <b>2015–2024</b> surveys: <b>2,297,168</b> respondents in total. The question we ask of the data: <i>can we predict whether a person has diabetes from their survey answers?</i></p>
+    <p>The target variable is <b>DIABETE4</b> (“have you ever been told you have diabetes?”). Only <b>17.06%</b> of respondents answer “Yes”. The models use <b>15 predictors</b> (age group, BMI category, general health, smoking, income, etc. — all integer-coded survey answers). YEAR is metadata only, never a predictor.</p>
+    <div class="src">Source: <code>P4_Integration_Evaluation/report/Person_4_Integration_Report.md</code> §2 · <code>P4_Integration_Evaluation/results/input_validation.json</code></div>
+  </div>
+
+  <div class="card">
+    <h3>What is “class imbalance” — and why is accuracy misleading?</h3>
+    <p>Imagine 100 survey respondents. About <b>83</b> do not have diabetes, <b>17</b> do:</p>
+    <div class="people100" id="people100" aria-label="83 without diabetes, 17 with diabetes"></div>
+    <p>A lazy model that always predicts <i>“No diabetes”</i> would be right 83 times out of 100 — <b>83% accuracy</b> — while detecting <b>zero</b> actual diabetes cases. That is the accuracy trap: when one class dominates, accuracy rewards doing nothing useful.</p>
+    <p>This is exactly what happened in our <b>baseline</b> (no balancing). With XGBoost it reached <b>0.835 accuracy</b> — the highest accuracy in the whole study — but its <b>recall was only 0.123</b>: it missed <b>68,711 of the 78,366</b> diabetic patients in the test set (about 7 in 8). <span class="pill tag-verified">verified</span></p>
+    <div class="src">Source: <code>P4_Integration_Evaluation/results/combined_results.csv</code> — row <i>No Balancing / XGBoost</i> (Accuracy 0.8354, Recall 0.1232, FN 68,711 of 78,366 positives)</div>
+  </div>
+
+  <div class="card">
+    <h3>The base paper: Divide and Recombine (D&amp;R)</h3>
+    <p>Our starting point is the paper <i>“Divide and Recombine Approaches for Fitting Logistic Regression to Large-Scale Health Surveillance Data: Application to Diabetes Risk Prediction in BRFSS”</i> (Nayem &amp; Biswas, <i>Scientific Reports</i>). Its core idea:</p>
+    <ol class="tight">
+      <li><b>Divide</b> — split the massive dataset into smaller, manageable subsets.</li>
+      <li><b>Fit</b> — run logistic regression independently on each subset (no communication needed between them).</li>
+      <li><b>Recombine</b> — combine the subset estimates into one final model that approximates the full-data result.</li>
+    </ol>
+    <p>The paper’s headline result: on BRFSS-scale data D&amp;R matched centralized estimation (<b>&gt;99.8% relative efficiency</b>) while cutting computation time by <b>&gt;52%</b> and memory use by <b>77–89%</b> (validated with Monte Carlo simulations of 5M synthetic observations × 1,000 replications, plus BRFSS 2014–2024 with 2.4M+ rows).</p>
+    <div class="callout">
+      <b>How our P1–P4 work relates to the base paper — and how it differs.</b><br>
+      <b>Shared context:</b> same BRFSS diabetes-prediction setting, same large-survey-data challenges, logistic regression as a core classifier.<br>
+      <b>Different research question:</b> the base paper’s primary focus is <i>computational efficiency</i> — how to fit models faster on huge data. Our P1–P4 study asks a <i>modelling</i> question instead: <i>given we can already fit the models, how should we handle the 17%-vs-83% class imbalance so the model actually detects diabetes cases?</i> Our contribution is the systematic comparison of imbalance-handling techniques, not faster fitting.
+      <span class="pill tag-interp">interpretation</span>
+    </div>
+    <div class="src">Base-paper facts: abstract of Nayem &amp; Biswas (Scientific Reports, doi:10.1038/s41598-026-46927-7) · D&amp;R foundations: Guha et al. (2009, 2012); Cleveland &amp; Hafen (2014)</div>
+  </div>
+</section>
+
+<!-- ============ 2. JOURNEY ============ -->
+<section id="journey">
+  <h2 class="sec">2. The project journey</h2>
+  <p class="lede">Click each stage. Every team member used the <b>same dataset, same frozen test set (459,434 rows), same 3 classifiers, same metrics, seed 42</b> — only the imbalance-handling technique differed.</p>
+  <div class="journey" id="journeyBar">
+    <div class="jnode active" data-k="problem"><div class="big">🎯</div><b>Research problem</b><small>the question</small></div><div class="jarrow">→</div>
+    <div class="jnode" data-k="p1"><div class="big">🧪</div><b>P1</b><small>basic oversampling</small></div><div class="jarrow">→</div>
+    <div class="jnode" data-k="p2"><div class="big">🔬</div><b>P2</b><small>advanced oversampling</small></div><div class="jarrow">→</div>
+    <div class="jnode" data-k="p3"><div class="big">🧹</div><b>P3</b><small>cleaning &amp; hybrid</small></div><div class="jarrow">→</div>
+    <div class="jnode" data-k="p4"><div class="big">🧩</div><b>P4</b><small>integration</small></div><div class="jarrow">→</div>
+    <div class="jnode" data-k="findings"><div class="big">💡</div><b>Main findings</b><small>what we learned</small></div>
+  </div>
+  <div class="card show" id="journeyDetail"></div>
+</section>
+<!-- ============ 3. RESULTS ============ -->
+<section id="results">
+  <h2 class="sec">3. Results — what actually happened</h2>
+  <p class="lede">All 36 experiments (12 techniques × 3 classifiers). Filter by family and classifier, or pick a metric to spotlight. <span class="pill tag-verified">verified</span> Every value below is copied from the integrated results file.</p>
+
+  <div class="card">
+    <div class="controls">
+      <label>Family
+        <select id="fFam">
+          <option value="all">All families</option>
+          <option value="Baseline">Baseline</option>
+          <option value="Basic oversampling">Basic oversampling (P1)</option>
+          <option value="Advanced oversampling">Advanced oversampling (P2)</option>
+          <option value="Cleaning & hybrid">Cleaning &amp; hybrid (P3)</option>
+        </select>
+      </label>
+      <label>Classifier
+        <select id="fModel">
+          <option value="all">All classifiers</option>
+          <option value="LogisticRegression">Logistic Regression</option>
+          <option value="RandomForest">Random Forest</option>
+          <option value="XGBoost">XGBoost</option>
+        </select>
+      </label>
+      <label>Spotlight metric
+        <select id="fMetric">
+          <option value="F1">F1-score</option>
+          <option value="Recall">Recall</option>
+          <option value="Accuracy">Accuracy</option>
+          <option value="Precision">Precision</option>
+          <option value="ROC_AUC">ROC-AUC</option>
+          <option value="PR_AUC">PR-AUC</option>
+        </select>
+      </label>
+      <span class="legend" id="rowCount"></span>
+    </div>
+    <div style="overflow-x:auto">
+    <table class="data" id="resTable">
+      <thead><tr><th>Technique</th><th>Person</th><th>Classifier</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>PR-AUC</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    </div>
+    <div class="legend">† SVM-SMOTE and SMOTE-N were trained on a shared 50,000-row subsample (not the full 1.84M training set) — flagged wherever they appear. Highlighted cells = best in the current filtered view for the spotlight metric.</div>
+    <div class="src">Source: <code>P4_Integration_Evaluation/results/combined_results.csv</code> (36 rows). Per-person sources: P1 → <code>P1_Basic_Oversampling/11_Audit_2015_2024_Rerun/07_combined_results_audit/combined_results_2015_2024.csv</code>; P2 → <code>P2_Advanced_Oversampling/results/results_person2.csv</code>; P3 → <code>P3_Advanced_Resampling/results/results_person3.csv</code>. Each row re-verified from saved prediction files (gate 1: 82/82).</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>F1-score by technique <small style="color:var(--muted);font-weight:400">(XGBoost — the strongest classifier)</small></h3>
+      <div id="chartF1"></div>
+      <div class="legend">Plain Random Oversampling is the F1 champion on <i>all three</i> classifiers (0.4435 LR · 0.4441 RF · 0.4453 XGB).</div>
+    </div>
+    <div class="card">
+      <h3>The trade-off: accuracy vs recall <small style="color:var(--muted);font-weight:400">(XGBoost; hover points)</small></h3>
+      <div id="chartScatter"></div>
+      <div class="legend">No technique wins both axes. Oversamplers live top-left (catch more cases, more false alarms); baseline/cleaning live bottom-right. ENN sits in the valuable middle.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What each technique did to the training data</h3>
+    <div id="chartMech"></div>
+    <div class="legend">Oversamplers add ~1.21M synthetic minority rows; ENN <i>removes</i> 470,885 ambiguous majority rows; Tomek Links removes only 7,161 border rows (0.47% of the majority class); † techniques add just 32,944 rows on the 50k subsample.</div>
+    <div class="src">Source: <code>P4_Integration_Evaluation/report/Person_4_Integration_Report.md</code> §“Resampling mechanics” · generated from each person’s class-distribution artifacts</div>
+  </div>
+</section>
+<!-- ============ 4. METRICS ============ -->
+<section id="metrics">
+  <h2 class="sec">4. Metrics — what each number means</h2>
+  <p class="lede">All metrics are computed on the <b>same frozen test set</b> (459,434 people: 381,068 without diabetes, 78,366 with diabetes) at a fixed <b>0.5 decision threshold</b>.</p>
+
+  <div class="metric-cards">
+    <div class="metric-card"><h4><span class="abbr" title="Share of all test cases the model labels correctly.">Accuracy</span> Overall correctness</h4>
+      <p>Of 100 people, how many did the model label correctly? <b>Misleading here</b>: predicting “No” for everyone scores 0.83 without finding a single case.</p></div>
+    <div class="metric-card"><h4><span class="abbr" title="Of all cases the model flags as diabetic, the share that truly are diabetic.">Precision</span> Trust in a “Yes”</h4>
+      <p>When the model says “diabetes”, how often is it right? Falls when we push the model to flag more cases (more false alarms).</p></div>
+    <div class="metric-card"><h4><span class="abbr" title="Of all truly diabetic cases, the share the model catches. Also called sensitivity.">Recall</span> Cases caught</h4>
+      <p>Of 100 truly diabetic people, how many did the model find? The most clinically important metric for <i>screening</i> — missing a case can mean missed care.</p></div>
+    <div class="metric-card"><h4><span class="abbr" title="Harmonic mean of precision and recall on the minority (diabetic) class.">F1</span> Balance of the two</h4>
+      <p>Single number balancing precision and recall for the diabetic class. Our headline metric: baseline 0.15–0.22 → best 0.445.</p></div>
+    <div class="metric-card"><h4><span class="abbr" title="Threshold-free measure of how well the model ranks patients by risk, over all thresholds.">ROC-AUC</span> Ranking quality</h4>
+      <p>Does the model rank a randomly chosen diabetic patient above a non-diabetic one? Ignores the 0.5 threshold — barely moved by resampling (0.77–0.78 throughout).</p></div>
+    <div class="metric-card"><h4><span class="abbr" title="Area under the precision-recall curve; more informative than ROC-AUC when positives are rare (17% here).">PR-AUC</span> Ranking quality (rare class)</h4>
+      <p>Like ROC-AUC but focused on the minority class. Also threshold-free, also nearly unchanged by resampling — the key clue that resampling shifts the <i>operating point</i>, not the ranking.</p></div>
+  </div>
+
+  <div class="card" style="margin-top:1.1rem">
+    <h3>Worked example: what do the raw counts look like? <small style="color:var(--muted);font-weight:400">(Random Oversampling + XGBoost — the F1 champion)</small></h3>
+    <div class="twocol">
+      <div>
+        <div class="cm">
+          <div></div><div class="h">Predicted: No</div><div class="h">Predicted: Yes</div>
+          <div class="h">Actually: No</div><div class="tn"><b>255,258</b><br><small>true negatives</small></div><div class="fp"><b>125,810</b><br><small>false positives</small></div>
+          <div class="h">Actually: Yes</div><div class="fn"><b>19,880</b><br><small>false negatives (missed)</small></div><div class="tp"><b>58,486</b><br><small>true positives (caught)</small></div>
+        </div>
+      </div>
+      <div>
+        <ul class="tight" style="font-size:.92rem">
+          <li><b>Recall</b> = 58,486 ÷ (58,486 + 19,880) = <b>0.746</b> — caught 3 in 4 cases.</li>
+          <li><b>Precision</b> = 58,486 ÷ (58,486 + 125,810) = <b>0.317</b> — only 1 in 3 flags is truly diabetic.</li>
+          <li><b>F1</b> = balance of the two = <b>0.445</b>.</li>
+          <li><b>Accuracy</b> = (255,258 + 58,486) ÷ 459,434 = <b>0.683</b> — <i>lower</i> than baseline’s 0.835, yet far more useful for screening.</li>
+        </ul>
+        <p style="font-size:.92rem">Compare the baseline XGBoost: only <b>9,655</b> caught vs <b>68,711</b> missed — higher accuracy, far worse screening.</p>
+      </div>
+    </div>
+    <div class="src">Source: <code>P4_Integration_Evaluation/results/combined_results.csv</code> — confusion counts (TN/FP/FN/TP columns), rows <i>Random Oversampling / XGBoost</i> and <i>No Balancing / XGBoost</i></div>
+  </div>
+</section>
+
+<!-- ============ 5. FINDINGS ============ -->
+<section id="findings">
+  <h2 class="sec">5. Findings — which approach wins, and under which metric</h2>
+  <p class="lede">The central lesson: <b>there is no single “best” technique</b> — the winner depends on what you want the model to do. Each finding below states its source, meaning, conclusion, and limitation.</p>
+
+  <div class="card finding">
+    <h3><span class="fn">Finding 1.</span> Plain Random Oversampling is the F1 champion <span class="pill tag-verified">verified</span></h3>
+    <p><b>Value &amp; source:</b> F1 = <b>0.4435</b> (Logistic Regression), <b>0.4441</b> (Random Forest), <b>0.4453</b> (XGBoost) — the top F1 for <i>every</i> classifier. Source: <code>combined_results.csv</code>, rows <i>Random Oversampling</i> (P1).</p>
+    <p><b>What it means:</b> the simplest method — duplicating existing diabetic training rows until classes balance — beats all eleven fancier alternatives on the balanced precision/recall measure.</p>
+    <p><b>Conclusion:</b> on this dataset the marginal value of sophisticated synthesis over naive duplication is near zero for F1; with 313,462 real minority examples, simple duplication balances the loss without visible overfitting. <span class="pill tag-interp">interpretation</span></p>
+    <p><b>Limitation:</b> the margin over SMOTE (0.4415) is tiny; with n = 459,434 even tiny gaps are statistically significant — the <i>practical</i> gap is small.</p>
+  </div>
+
+  <div class="card finding">
+    <h3><span class="fn">Finding 2.</span> ADASYN catches the most cases — at a price <span class="pill tag-verified">verified</span></h3>
+    <p><b>Value &amp; source:</b> Recall = <b>0.7716</b> (ADASYN + Random Forest), the highest recall in the study; ADASYN + XGBoost 0.7689. Source: <code>combined_results.csv</code>, rows <i>ADASYN</i> (P1).</p>
+    <p><b>What it means:</b> ADASYN focuses synthetic data on “hard” minority examples, pushing the model to say “Yes” most aggressively — catching 77% of diabetic cases.</p>
+    <p><b>Conclusion:</b> if the use-case is <i>screening</i> where missing a case is costly and false alarms are tolerable, ADASYN’s operating point is the one to choose — but precision drops to ~0.30 and accuracy to ~0.65. Higher recall ≠ best overall model. <span class="pill tag-interp">interpretation</span></p>
+    <p><b>Limitation:</b> ~2 in 3 “diabetes” flags are false alarms; downstream triage capacity must absorb that.</p>
+  </div>
+
+  <div class="card finding">
+    <h3><span class="fn">Finding 3.</span> ENN: the best accuracy-preserving option <span class="pill tag-verified">verified</span></h3>
+    <p><b>Value &amp; source:</b> ENN + XGBoost: F1 <b>0.4420</b> (runner-up overall) with accuracy <b>0.7935</b> and ROC-AUC 0.7799 — vs ROS accuracy of only 0.6829. Source: <code>combined_results.csv</code>, row <i>ENN / XGBoost</i> (P3).</p>
+    <p><b>What it means:</b> instead of inventing synthetic patients, ENN <i>deletes</i> 470,885 ambiguous majority rows the 3-nearest-neighbours rule disagrees with — cleaning the boundary rather than fabricating data.</p>
+    <p><b>Conclusion:</b> when accuracy/precision must be preserved (e.g. triage with limited follow-up), ENN is the best choice: near-champion F1 without the oversamplers’ accuracy collapse. <span class="pill tag-interp">interpretation</span></p>
+    <p><b>Limitation:</b> still discards real data; cleaning aggressiveness is a judgement call, not a law of nature.</p>
+  </div>
+
+  <div class="card finding">
+    <h3><span class="fn">Finding 4.</span> Tomek Links ≈ doing (almost) nothing — and that’s informative <span class="pill tag-verified">verified</span></h3>
+    <p><b>Value &amp; source:</b> Tomek Links F1 = 0.2242 / 0.1636 / 0.2140 — essentially baseline level (0.2166 / 0.1531 / 0.2034) — yet it holds the <b>highest ROC-AUC</b> in the study (0.7803, XGBoost). McNemar: statistically <i>indistinguishable</i> from baseline on all three classifiers. Source: <code>combined_results.csv</code> + <code>statistical_tests_mcnemar.csv</code>.</p>
+    <p><b>What it means:</b> removing just 7,161 borderline majority rows (0.47% of them) changes almost nothing — proof that gentle cleaning preserves the baseline’s excellent ranking quality.</p>
+    <p><b>Conclusion:</b> if you want the baseline’s calibrated probabilities and ranking untouched, Tomek Links is the shallowest possible intervention. <span class="pill tag-interp">interpretation</span></p>
+    <p><b>Limitation:</b> it does not solve the recall problem at all (recall stays ~0.09–0.14).</p>
+  </div>
+
+  <div class="card finding">
+    <h3><span class="fn">Finding 5.</span> The unifying explanation: resampling moves the operating point, not the ranking <span class="pill tag-verified">verified</span></h3>
+    <p><b>Value &amp; source:</b> XGBoost PR-AUC: ROS <b>0.4176</b> vs baseline <b>0.4176</b> — identical; ROC-AUC 0.7802 vs 0.7802. The ROC/PR curves of family champions nearly coincide (<code>figures/05_family_champion_curves.png</code>).</p>
+    <p><b>What it means:</b> balancing the training set teaches the classifier that diabetes prevalence is ~50% instead of 17%, so at the fixed 0.5 threshold it says “Yes” far more often. The model’s ability to <i>rank</i> patients by risk barely changes — only the <i>decision behaviour at one threshold</i> does.</p>
+    <p><b>Conclusion:</b> for this research, technique choice is effectively a choice of <i>operating point</i> (plus a modest ENN cleaning dividend) — not a modelling upgrade. A threshold-tuned baseline might close much of the gap: flagged as future work. <span class="pill tag-interp">interpretation</span></p>
+    <p><b>Limitation:</b> threshold 0.5 was fixed by team protocol; the threshold-moving comparison was not run.</p>
+  </div>
+
+  <div class="card">
+    <h3>Winners by metric and classifier <span class="pill tag-verified">verified</span></h3>
+    <div style="overflow-x:auto"><table class="data" id="winTable">
+      <thead><tr><th>Classifier</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC-AUC</th><th>PR-AUC</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div class="legend">Read a column: no single row wins everywhere. Accuracy/precision/ranking → baseline &amp; cleaning; recall → aggressive oversamplers; F1 → Random Oversampling.</div>
+    <div class="src">Source: <code>P4_Integration_Evaluation/results/winners_tradeoffs.csv</code> (winner + runner-up per metric)</div>
+  </div>
+</section>
+<!-- ============ 6. VALIDATION ============ -->
+<section id="validation">
+  <h2 class="sec">6. Fairness, validation &amp; limitations</h2>
+  <p class="lede">A comparison is only as good as its controls. Here is what was held constant, what was checked by machine, and what we must openly disclose.</p>
+
+  <div class="card teal callout" style="border-left-width:4px">
+    <b>What was identical for all 36 rows</b> <span class="pill tag-verified">verified</span><br>
+    BRFSS 2015–2024 (2,297,168 rows) · the frozen stratified test set (459,434 rows, SHA-256 <code>70e180c6…</code>, independently re-derived by P4) · 15 predictors (YEAR excluded) · classifier hyperparameters (LR max_iter=1000/lbfgs; RF 100 trees/depth 12; XGB 300 rounds/depth 6/lr 0.05) · six metrics at 0.5 threshold · seed 42 · resampling applied to training data only · test set never resampled.
+    <div class="src">Source: <code>P4_Integration_Evaluation/report/Person_4_Integration_Report.md</code> §2 &amp; §4 · <code>results/input_validation.json</code></div>
+  </div>
+
+  <div class="kpi">
+    <div class="k"><div class="n">82/82</div><div class="l">input-verification checks passed — every metric recomputed from saved predictions</div></div>
+    <div class="k"><div class="n">36/36</div><div class="l">P4 validation checks passed — tables, figures, workbook, report consistency</div></div>
+    <div class="k"><div class="n">191/198</div><div class="l">McNemar technique-pair comparisons significant after Holm correction</div></div>
+    <div class="k"><div class="n">7</div><div class="l">non-significant pairs — the informative <i>equivalences</i> (Tomek≈baseline; ROS≈SMOTE≈SMOTE-Tomek)</div></div>
+  </div>
+  <div class="src">Sources: <code>P4_Integration_Evaluation/results/input_validation.json</code> · <code>results/validation_report.json</code> · <code>results/statistical_tests_mcnemar.csv</code> (198 rows) · <code>results/statistical_tests_summary.csv</code></div>
+
+  <div class="card" style="margin-top:1.1rem">
+    <h3>What we must disclose — limitations &amp; caveats <span class="pill tag-verified">verified</span></h3>
+    <ul class="tight">
+      <li><b>† Subsample techniques:</b> SVM-SMOTE and SMOTE-N were trained on a shared stratified <b>50,000-row subsample</b> (41,472 No / 8,528 Yes), not the full 1.84M training set — indicative, not strictly like-for-like.</li>
+      <li><b>KMeans-SMOTE non-default parameters</b> (kmeans_estimator=100, cluster_balance_threshold=0.2) — library defaults failed on the all-categorical feature space; documented in P2’s protocol.</li>
+      <li><b>SVM-SMOTE extrapolation:</b> 12,314 synthetic values (<b>2.49%</b>) fall one code below the observed per-feature minimum — inherent to <code>out_step=0.5</code>, reported in P2’s audit.</li>
+      <li><b>XGBoost cross-machine variability:</b> re-running on different hardware changes XGBoost metrics by ~0.002 (1,238 label flips) — XGBoost <code>hist</code> is not bit-reproducible across thread counts. Differences below ~0.002 are machine noise, not method differences. LR/RF are bit-identical.</li>
+      <li><b>Significance ≠ importance:</b> with n = 459,434, even trivially small differences become “significant” — that is why every McNemar p-value is reported <i>with</i> effect sizes (accuracy/recall differences), and why the report stresses practical gaps over p-values.</li>
+      <li><b>Single split, fixed threshold:</b> one 80/20 split (no cross-validation); decision threshold fixed at 0.5 by protocol — a threshold-tuned baseline could narrow the resampled models’ advantage (future work).</li>
+      <li><b>No external cohort;</b> patients may repeat across survey years; no calibration analysis (reliability diagrams/Brier score).</li>
+    </ul>
+    <div class="src">Sources: <code>P4_Integration_Evaluation/report/Person_4_Integration_Report.md</code> §4 &amp; §9 · <code>P2_Advanced_Oversampling/results/validation_report.json</code> (out-of-range audit) · <code>P2_Advanced_Oversampling/PROTOCOL_P2.md</code></div>
+  </div>
+
+  <details><summary>What is McNemar’s test, in plain English?</summary><div class="body">
+    <p>To ask “do two techniques <i>really</i> behave differently?”, P4 compared their predictions patient-by-patient on the same 459,434 test rows. McNemar’s test looks only at the patients where the two models <i>disagree</i> (A right / B wrong vs A wrong / B right) and asks whether the disagreement is lopsided enough to rule out chance. <b>Holm correction</b> adjusts for running 198 such tests so we don’t get fooled by multiple comparisons. Result: 191/198 pairs differ significantly — and the 7 that don’t (e.g. Tomek Links vs baseline) tell us which techniques are effectively equivalent.</p>
+  </div></details>
+</section>
+
+<!-- ============ 7. EVIDENCE ============ -->
+<section id="evidence">
+  <h2 class="sec">7. How to read the evidence</h2>
+  <p class="lede">Every number in this dashboard traces back to a repository file. Here is the chain.</p>
+  <div class="card">
+    <h3>The traceability chain</h3>
+    <ol class="tight">
+      <li><b>Dashboard value</b> (e.g. “ROS + XGBoost F1 = 0.4453”)</li>
+      <li>→ <code>P4_Integration_Evaluation/results/combined_results.csv</code> — the integrated 36-row table (row <i>Random Oversampling / XGBoost</i>)</li>
+      <li>→ Person’s own results file — P1: <code>P1_Basic_Oversampling/11_Audit_2015_2024_Rerun/07_combined_results_audit/combined_results_2015_2024.csv</code> · P2: <code>P2_Advanced_Oversampling/results/results_person2.csv</code> · P3: <code>P3_Advanced_Resampling/results/results_person3.csv</code></li>
+      <li>→ Person’s saved prediction file (e.g. <code>test_predictions_2015_2024.parquet</code>) — P4’s gate 1 recomputed every metric from these and matched the CSVs (max diff 7.6e-08)</li>
+      <li>→ Statistical claims → <code>results/statistical_tests_mcnemar.csv</code> (198 rows) and <code>results/statistical_tests_summary.csv</code></li>
+      <li>→ Machine-readable provenance for everything → <code>P4_Integration_Evaluation/metadata/sources.json</code></li>
+    </ol>
+    <div class="src">Full narrative: <code>P4_Integration_Evaluation/report/Person_4_Integration_Report.md</code> §11 (traceability appendix) · Workbook: <code>P4_Integration_Evaluation/workbook/Person_4_Integration_Workbook.xlsx</code> (11 sheets incl. Traceability &amp; Fairness_register)</div>
+  </div>
+  <div class="twocol">
+    <div class="card"><h3><span class="pill tag-verified">verified</span> = from the repository</h3>
+      <p style="font-size:.92rem">A number, ranking, or validation count copied directly from a repository artifact (CSV, report, validation JSON) and re-checked during this dashboard’s construction. If a value ever looks surprising, the file path next to it is where to look.</p></div>
+    <div class="card"><h3><span class="pill tag-interp">interpretation</span> = our reading</h3>
+      <p style="font-size:.92rem">Explanatory text — analogies, “why it matters”, practical recommendations — that goes beyond what the artifacts literally state. Kept separate so nothing explanatory is mistaken for a measured result.</p></div>
+  </div>
+  <div class="callout blue"><b>Note on this dashboard itself:</b> this HTML page is a <i>learning aid</i> created to explain the project — it is not one of the validated P4 artifacts. All of its numbers are verified against the artifacts listed above; its prose is interpretation. <span class="pill tag-interp">interpretation</span></div>
+</section>
+
+<!-- ============ 8. SUPERVISOR ============ -->
+<section id="supervisor">
+  <h2 class="sec">8. What should our supervisor take away from this research?</h2>
+  <div class="card">
+    <ol class="tight">
+      <li><b>The study is complete and validated:</b> 12 techniques × 3 classifiers on one shared BRFSS 2015–2024 protocol, with machine-checked gates (82/82 input checks, 36/36 P4 checks) and paired statistical testing (191/198 McNemar significant after Holm).</li>
+      <li><b>Class imbalance handling roughly doubles minority-class F1</b> (0.15–0.22 → up to 0.445) by trading accuracy/precision for recall — the baseline’s 0.835 accuracy masked a recall of only 0.09–0.14.</li>
+      <li><b>Simplicity wins:</b> plain Random Oversampling is the F1 champion on all three classifiers; sophisticated oversamplers add essentially nothing on F1 (statistically indistinguishable label behaviour for ROS ≈ SMOTE ≈ SMOTE-Tomek).</li>
+      <li><b>The scientifically interesting result is the mechanism:</b> resampling shifts the <i>operating point</i> (threshold behaviour), not the <i>ranking quality</i> — PR-AUC for XGBoost is identical (0.4176) with and without balancing. Technique choice is therefore a decision about the desired recall/precision mix, not a modelling upgrade.</li>
+      <li><b>ENN is the accuracy-preserving alternative</b> (F1 0.442, accuracy 0.794 vs 0.683 for ROS) — the most valuable non-oversampling intervention is cleaning, not synthesis.</li>
+      <li><b>Limitations are documented, not hidden:</b> † subsample techniques, KMeans-SMOTE non-defaults, SVM-SMOTE extrapolation (2.49%), XGBoost ~0.002 machine noise, single split, fixed 0.5 threshold, no external cohort.</li>
+      <li><b>Recommended next steps:</b> threshold-tuning comparison against the baseline (the cheapest experiment, using saved predictions); cross-validation of the leading techniques; calibration analysis; and an external validation cohort before any clinical framing.</li>
+    </ol>
+    <div class="src">Takeaways 1–6 condense <code>P4_Integration_Evaluation/report/Person_4_Integration_Report.md</code> §1, §7, §9, §10 · Takeaway 7 combines the report’s §9 limitations with standard next steps <span class="pill tag-interp">interpretation</span></div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <p><b>Learning dashboard</b> for the PhD class-imbalance project (P1–P4) · BRFSS 2015–2024 diabetes prediction · Built from repository artifacts at <a href="https://github.com/AshokBhati10/phd-research">github.com/AshokBhati10/phd-research</a> · Generated 2026-10-18.</p>
+    <p style="opacity:.75">Numbers marked “verified” were cross-checked against <code>combined_results.csv</code>, <code>statistical_tests_mcnemar.csv</code>, <code>validation_report.json</code>, <code>input_validation.json</code>, and <code>Person_4_Integration_Report.md</code>. This page is a self-contained HTML file: no server, no external requests, works offline in any modern browser.</p>
+  </div>
+</footer>
+
+<script>
+/* ================= DATA (from P4_Integration_Evaluation/results/combined_results.csv, 4dp) ================= */
+const ROWS=[
+ ["No Balancing","P1","Baseline","LogisticRegression",0.8330,0.5416,0.1354,0.2166,0.7713,0.4010,""],
+ ["No Balancing","P1","Baseline","RandomForest",0.8347,0.6076,0.0876,0.1531,0.7775,0.4137,""],
+ ["No Balancing","P1","Baseline","XGBoost",0.8354,0.5832,0.1232,0.2034,0.7802,0.4176,""],
+ ["Random Oversampling","P1","Basic oversampling","LogisticRegression",0.6990,0.3239,0.7033,0.4435,0.7715,0.3995,""],
+ ["Random Oversampling","P1","Basic oversampling","RandomForest",0.6847,0.3176,0.7385,0.4441,0.7777,0.4137,""],
+ ["Random Oversampling","P1","Basic oversampling","XGBoost",0.6829,0.3173,0.7463,0.4453,0.7802,0.4176,""],
+ ["SMOTE","P1","Basic oversampling","LogisticRegression",0.6995,0.3230,0.6951,0.4410,0.7685,0.3974,""],
+ ["SMOTE","P1","Basic oversampling","RandomForest",0.6843,0.3162,0.7315,0.4415,0.7751,0.4084,""],
+ ["SMOTE","P1","Basic oversampling","XGBoost",0.6840,0.3160,0.7321,0.4415,0.7742,0.4079,""],
+ ["ADASYN","P1","Basic oversampling","LogisticRegression",0.6812,0.3122,0.7224,0.4359,0.7669,0.3952,""],
+ ["ADASYN","P1","Basic oversampling","RandomForest",0.6541,0.3001,0.7716,0.4321,0.7727,0.4032,""],
+ ["ADASYN","P1","Basic oversampling","XGBoost",0.6528,0.2988,0.7689,0.4303,0.7703,0.3998,""],
+ ["Borderline-SMOTE","P2","Advanced oversampling","LogisticRegression",0.6933,0.3195,0.7062,0.4399,0.7686,0.3962,""],
+ ["Borderline-SMOTE","P2","Advanced oversampling","RandomForest",0.6640,0.3055,0.7618,0.4361,0.7740,0.4023,""],
+ ["Borderline-SMOTE","P2","Advanced oversampling","XGBoost",0.6655,0.3063,0.7601,0.4367,0.7734,0.3991,""],
+ ["KMeans-SMOTE","P2","Advanced oversampling","LogisticRegression",0.7757,0.3753,0.4740,0.4189,0.7569,0.3773,""],
+ ["KMeans-SMOTE","P2","Advanced oversampling","RandomForest",0.7986,0.4039,0.3803,0.3918,0.7635,0.3752,""],
+ ["KMeans-SMOTE","P2","Advanced oversampling","XGBoost",0.7995,0.4080,0.3896,0.3986,0.7701,0.3809,""],
+ ["SVM-SMOTE","P2","Advanced oversampling","LogisticRegression",0.7396,0.3473,0.5992,0.4398,0.7631,0.3914,"†"],
+ ["SVM-SMOTE","P2","Advanced oversampling","RandomForest",0.7512,0.3573,0.5741,0.4405,0.7676,0.3980,"†"],
+ ["SVM-SMOTE","P2","Advanced oversampling","XGBoost",0.7446,0.3509,0.5857,0.4389,0.7646,0.3965,"†"],
+ ["SMOTE-N","P2","Advanced oversampling","LogisticRegression",0.7054,0.3162,0.6255,0.4201,0.7374,0.3716,"†"],
+ ["SMOTE-N","P2","Advanced oversampling","RandomForest",0.7226,0.3231,0.5720,0.4130,0.7383,0.3597,"†"],
+ ["SMOTE-N","P2","Advanced oversampling","XGBoost",0.7146,0.3119,0.5583,0.4002,0.7265,0.3496,"†"],
+ ["Tomek Links","P3","Cleaning & hybrid","LogisticRegression",0.8329,0.5385,0.1416,0.2242,0.7713,0.4011,""],
+ ["Tomek Links","P3","Cleaning & hybrid","RandomForest",0.8349,0.6023,0.0946,0.1636,0.7776,0.4139,""],
+ ["Tomek Links","P3","Cleaning & hybrid","XGBoost",0.8354,0.5769,0.1314,0.2140,0.7803,0.4176,""],
+ ["ENN","P3","Cleaning & hybrid","LogisticRegression",0.7948,0.4075,0.4467,0.4262,0.7715,0.4006,""],
+ ["ENN","P3","Cleaning & hybrid","RandomForest",0.8011,0.4207,0.4401,0.4301,0.7772,0.4127,""],
+ ["ENN","P3","Cleaning & hybrid","XGBoost",0.7935,0.4100,0.4794,0.4420,0.7799,0.4168,""],
+ ["SMOTE-Tomek","P3","Cleaning & hybrid","LogisticRegression",0.6998,0.3232,0.6943,0.4410,0.7684,0.3973,""],
+ ["SMOTE-Tomek","P3","Cleaning & hybrid","RandomForest",0.6843,0.3162,0.7319,0.4416,0.7750,0.4083,""],
+ ["SMOTE-Tomek","P3","Cleaning & hybrid","XGBoost",0.6848,0.3163,0.7301,0.4414,0.7740,0.4076,""],
+ ["SMOTE-ENN","P3","Cleaning & hybrid","LogisticRegression",0.8213,0.4556,0.2455,0.3191,0.7526,0.3781,""],
+ ["SMOTE-ENN","P3","Cleaning & hybrid","RandomForest",0.8239,0.4697,0.2501,0.3264,0.7425,0.3823,""],
+ ["SMOTE-ENN","P3","Cleaning & hybrid","XGBoost",0.8188,0.4500,0.2797,0.3449,0.7461,0.3829,""]
+];
+/* columns: tech, person, family, model, acc, prec, rec, f1, roc, pr, flag */
+const MI={Accuracy:4,Precision:5,Recall:6,F1:7,ROC_AUC:8,PR_AUC:9};
+const FAMCOLOR={"Baseline":"#6b7280","Basic oversampling":"#0e7c7b","Advanced oversampling":"#2563eb","Cleaning & hybrid":"#4d7c0f"};
+const MODELNAME={"LogisticRegression":"Logistic Regression","RandomForest":"Random Forest","XGBoost":"XGBoost"};
+
+/* ---------- tooltip ---------- */
+const tip=document.getElementById('tip');
+function showTip(html,x,y){tip.innerHTML=html;tip.style.display='block';
+  tip.style.left=Math.min(x+14,window.innerWidth-300)+'px';tip.style.top=(y+14)+'px';}
+function hideTip(){tip.style.display='none';}
+
+/* ---------- 100-person pictograph ---------- */
+(function(){const el=document.getElementById('people100');
+  for(let i=0;i<100;i++){const s=document.createElement('span');if(i>=83)s.className='yes';el.appendChild(s);}
+  el.title='83 without diabetes (grey), 17 with diabetes (red)';})();
+
+/* ---------- journey ---------- */
+const JOURNEY={
+ problem:{t:"🎯 The research problem",b:`<p><b>Question:</b> only 17% of BRFSS respondents report diabetes. A model trained naively learns to almost always predict “No” — high accuracy, useless screening. <b>How should we handle this class imbalance so models actually detect diabetes cases, and what does each handling choice cost?</b></p><p>Three team members each took one family of techniques; a fourth (P4) integrated everything on a shared protocol.</p>`},
+ p1:{t:"🧪 P1 — Basic oversampling",b:`<p><b>Investigates:</b> do the simplest fixes work? <b>Random Oversampling</b> (duplicate diabetic rows), <b>SMOTE</b> (interpolate synthetic points between neighbours), <b>ADASYN</b> (like SMOTE but focused on hard-to-learn cases).</p><p><b>Plain English:</b> if the model rarely sees diabetes cases, show it more of them — real copies or plausible synthetic neighbours — until the classes balance.</p><p><b>Headline:</b> ROS is the F1 champion on all three classifiers (0.4435 / 0.4441 / 0.4453); ADASYN + RF gives the study’s best recall (0.7716).</p><div class="src">Repo: <code>P1_Basic_Oversampling/</code> · results <code>07_Combined_Results/combined_results.csv</code> · report <code>10_Final_Report/Person_1_Final_Report_FINAL.md</code></div>`},
+ p2:{t:"🔬 P2 — Advanced oversampling",b:`<p><b>Investigates:</b> do smarter synthetic-data strategies beat naive ones? <b>Borderline-SMOTE</b> (synthesize near the class border), <b>KMeans-SMOTE</b> (synthesize inside minority clusters), <b>SVM-SMOTE</b> (synthesize along support vectors), <b>SMOTE-N</b> (categorical-native generation).</p><p><b>Plain English:</b> instead of scattering synthetic cases everywhere, place them where they matter most — the boundary, dense clusters, or respecting categorical codes.</p><p><b>Headline:</b> Borderline-SMOTE best F1 0.4399 (LR); SVM-SMOTE best F1 0.4405 (RF) — neither beats plain ROS. KMeans-SMOTE needed non-default parameters; SVM-SMOTE/SMOTE-N used a 50k subsample (†).</p><div class="src">Repo: <code>P2_Advanced_Oversampling/</code> · results <code>results/results_person2.csv</code> · report <code>report/Person_2_Final_Report.md</code> · protocol <code>PROTOCOL_P2.md</code></div>`},
+ p3:{t:"🧹 P3 — Cleaning & hybrid",b:`<p><b>Investigates:</b> what if we remove confusing majority examples instead of inventing minority ones? <b>Tomek Links</b> (delete borderline majority–minority pairs), <b>ENN</b> (delete majority rows misclassified by 3-NN), <b>SMOTE-Tomek</b> / <b>SMOTE-ENN</b> (oversample, then clean).</p><p><b>Plain English:</b> tidy the boundary between the classes rather than fabricating new patients.</p><p><b>Headline:</b> ENN + XGBoost reaches F1 0.4420 while keeping accuracy at 0.7935 — the best accuracy-preserving option; Tomek Links ≈ baseline (highest ROC-AUC, 0.7803).</p><div class="src">Repo: <code>P3_Advanced_Resampling/</code> · results <code>results/results_person3.csv</code> · report <code>report/Person_3_Final_Report.md</code> · protocol <code>metadata/PROTOCOL.md</code></div>`},
+ p4:{t:"🧩 P4 — Integration & evaluation",b:`<p><b>Investigates:</b> which approach wins <i>under which metric</i>, and is any of it statistically real? Merged all 36 rows, re-verified every metric from saved predictions (82/82), ran 198 McNemar paired tests with Holm correction (191 significant), and validated the whole pipeline (36/36).</p><p><b>Headline:</b> no technique wins everywhere — resampling moves the <i>operating point</i>, not the ranking (XGBoost PR-AUC identical at 0.4176 with/without balancing).</p><div class="src">Repo: <code>P4_Integration_Evaluation/</code> · integrated table <code>results/combined_results.csv</code> · report <code>report/Person_4_Integration_Report.md</code> · stats <code>results/statistical_tests_mcnemar.csv</code></div>`},
+ findings:{t:"💡 Main findings",b:`<ol class="tight"><li>Balancing roughly <b>doubles F1</b> (0.15–0.22 → up to 0.445), trading accuracy/precision for recall.</li><li><b>Plain Random Oversampling</b> is the F1 champion on all three classifiers.</li><li><b>ADASYN</b> catches the most cases (recall 0.7716) — at ~0.30 precision.</li><li><b>ENN</b> is the best accuracy-preserving choice (F1 0.442, accuracy 0.794).</li><li>Resampling shifts the <b>operating point, not the ranking</b> — technique choice = choosing your recall/precision mix.</li></ol><p><a href="#findings">Read the full findings section ↓</a></p>`}
+};
+const jd=document.getElementById('journeyDetail');
+document.querySelectorAll('#journeyBar .jnode').forEach(n=>{
+  n.addEventListener('click',()=>{
+    document.querySelectorAll('#journeyBar .jnode').forEach(x=>x.classList.remove('active'));
+    n.classList.add('active');
+    const k=JOURNEY[n.dataset.k];
+    jd.innerHTML='<h3 style="margin-top:0">'+k.t+'</h3>'+k.b;
+    jd.classList.add('show');
+  });
+});
+jd.innerHTML='<h3 style="margin-top:0">'+JOURNEY.problem.t+'</h3>'+JOURNEY.problem.b;
+jd.classList.add('show');
+
+/* ---------- results table ---------- */
+const tbody=document.querySelector('#resTable tbody');
+function renderTable(){
+  const fam=document.getElementById('fFam').value, mod=document.getElementById('fModel').value,
+        met=document.getElementById('fMetric').value, mi=MI[met];
+  const rows=ROWS.filter(r=>(fam==='all'||r[2]===fam)&&(mod==='all'||r[3]===mod));
+  let best=-1; rows.forEach(r=>{if(r[mi]>best)best=r[mi];});
+  tbody.innerHTML=rows.map(r=>{
+    const cells=[4,5,6,7,8,9].map(i=>'<td>'+r[i].toFixed(4)+'</td>').join('');
+    const hl=(r[mi]===best)?' class="best"':'';
+    return '<tr'+hl+'><td><span class="pill f-'+r[2].split(' ')[0].toLowerCase()+'">'+r[2].replace('Cleaning & hybrid','Cleaning')+'</span> '+r[0]+(r[10]?' <b>†</b>':'')+'</td><td>'+r[1]+'</td><td>'+MODELNAME[r[3]]+'</td>'+cells+'</tr>';
+  }).join('');
+  document.getElementById('rowCount').textContent=rows.length+' of 36 rows · best '+met+': '+best.toFixed(4);
+}
+['fFam','fModel','fMetric'].forEach(id=>document.getElementById(id).addEventListener('change',renderTable));
+renderTable();
+
+/* ---------- winners table ---------- */
+const WINNERS=[
+ ["Logistic Regression","No Balancing (0.8330)","No Balancing (0.5416)","ADASYN (0.7224)","Random Oversampling (0.4435)","ENN (0.7715)","Tomek Links (0.4011)"],
+ ["Random Forest","Tomek Links (0.8349)","No Balancing (0.6076)","ADASYN (0.7716)","Random Oversampling (0.4441)","Random Oversampling (0.7777)","Tomek Links (0.4139)"],
+ ["XGBoost","No Balancing (0.8354)","No Balancing (0.5832)","ADASYN (0.7689)","Random Oversampling (0.4453)","Tomek Links (0.7803)","Random Oversampling (0.4176)"]
+];
+document.querySelector('#winTable tbody').innerHTML=WINNERS.map(w=>
+ '<tr><td><b>'+w[0]+'</b></td>'+w.slice(1).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('');
+
+/* ---------- chart helpers ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(n,attrs,parent){const e=document.createElementNS(NS,n);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function barChart(mountId,items,fmt){
+  /* items: [{label,value,color,note}] horizontal bars */
+  const m=document.getElementById(mountId);m.innerHTML='';
+  const max=Math.max(...items.map(i=>i.value));
+  items.forEach(it=>{
+    const row=document.createElement('div');row.className='bar-row';
+    const lab=document.createElement('div');lab.className='bar-label';lab.textContent=it.label;row.appendChild(lab);
+    const track=document.createElement('div');track.className='bar-track';
+    const fill=document.createElement('div');fill.className='bar-fill';
+    fill.style.width=(it.value/max*100)+'%';fill.style.background=it.color;track.appendChild(fill);row.appendChild(track);
+    const val=document.createElement('div');val.className='bar-val';val.textContent=fmt(it.value);row.appendChild(val);
+    row.addEventListener('mousemove',e=>showTip('<b>'+it.label+'</b><br>F1 = '+it.value.toFixed(4)+(it.note?'<br>'+it.note:''),e.clientX,e.clientY));
+    row.addEventListener('mouseleave',hideTip);
+    m.appendChild(row);
+  });
+}
+const XGB=ROWS.filter(r=>r[3]==='XGBoost');
+barChart('chartF1',XGB.map(r=>({label:r[0]+(r[10]?' †':''),value:r[7],color:FAMCOLOR[r[2]],
+  note:r[2]+' · '+r[1]})),v=>v.toFixed(4));
+
+/* scatter: accuracy vs recall (XGBoost) */
+(function(){
+  const m=document.getElementById('chartScatter');const W=460,H=340,pl=52,pr=14,pt=14,pb=44;
+  const svg=el('svg',{width:'100%',viewBox:'0 0 '+W+' '+H},m);
+  const xs=r=>pl+(r[4]-0.62)/(0.86-0.62)*(W-pl-pr), ys=r=>H-pb-(r[6]-0.05)/(0.80-0.05)*(H-pt-pb);
+  [0.65,0.70,0.75,0.80,0.85].forEach(a=>{el('line',{x1:pl+(a-0.62)/0.24*(W-pl-pr),y1:pt,x2:pl+(a-0.62)/0.24*(W-pl-pr),y2:H-pb,stroke:'#e5eaf1'},svg);
+    const t=el('text',{x:pl+(a-0.62)/0.24*(W-pl-pr),y:H-pb+16,'text-anchor':'middle','font-size':10,fill:'#5b6b7c'},svg);t.textContent=a.toFixed(2);});
+  [0.1,0.2,0.3,0.4,0.5,0.6,0.7].forEach(c=>{el('line',{x1:pl,y1:H-pb-(c-0.05)/0.75*(H-pt-pb),x2:W-pr,y2:H-pb-(c-0.05)/0.75*(H-pt-pb),stroke:'#e5eaf1'},svg);
+    const t=el('text',{x:pl-8,y:H-pb-(c-0.05)/0.75*(H-pt-pb)+3,'text-anchor':'end','font-size':10,fill:'#5b6b7c'},svg);t.textContent=c.toFixed(1);});
+  const xl=el('text',{x:(W+pl)/2,y:H-8,'text-anchor':'middle','font-size':11,fill:'#33475c'},svg);xl.textContent='Accuracy →';
+  const yl=el('text',{x:12,y:(H)/2,'text-anchor':'middle','font-size':11,fill:'#33475c',transform:'rotate(-90 12 '+(H/2)+')'},svg);yl.textContent='Recall →';
+  XGB.forEach(r=>{
+    const c=el('circle',{cx:xs(r),cy:ys(r),r:9,fill:FAMCOLOR[r[2]],opacity:.85,'class':'scatter-dot'},svg);
+    c.addEventListener('mousemove',e=>showTip('<b>'+r[0]+(r[10]?' †':'')+'</b> (XGBoost)<br>Accuracy '+r[4].toFixed(4)+'<br>Recall '+r[6].toFixed(4)+'<br>F1 '+r[7].toFixed(4),e.clientX,e.clientY));
+    c.addEventListener('mouseleave',hideTip);
+    const SHORT={"No Balancing":"Base","Random Oversampling":"ROS","SMOTE":"SMOTE","ADASYN":"ADA","Borderline-SMOTE":"B-SM","KMeans-SMOTE":"K-SM","SVM-SMOTE":"SVM","SMOTE-N":"SMN","Tomek Links":"Tomek","ENN":"ENN","SMOTE-Tomek":"S-T","SMOTE-ENN":"S-E"};
+    const t=el('text',{x:xs(r),y:ys(r)+3,'text-anchor':'middle','font-size':7.5,fill:'#fff','pointer-events':'none'},svg);
+    t.textContent=SHORT[r[0]]||'';
+  });
+})();
+
+/* mechanics chart: rows added/removed */
+(function(){
+  const MECH=[["Random Oversampling",1210810,0,"#0e7c7b"],["SMOTE",1210810,0,"#0e7c7b"],["ADASYN",1201468,0,"#0e7c7b"],
+   ["Borderline-SMOTE",1210810,0,"#2563eb"],["KMeans-SMOTE",1210828,0,"#2563eb"],["SVM-SMOTE †",32944,0,"#2563eb"],["SMOTE-N †",32944,0,"#2563eb"],
+   ["Tomek Links",0,7161,"#4d7c0f"],["ENN",0,470885,"#4d7c0f"],["SMOTE-Tomek",1208265,0,"#4d7c0f"],["SMOTE-ENN",112454,0,"#4d7c0f"]];
+  const m=document.getElementById('chartMech');m.innerHTML='';
+  const max=1210828;
+  MECH.forEach(([label,add,rem,color])=>{
+    const v=add||rem, row=document.createElement('div');row.className='bar-row';
+    const lab=document.createElement('div');lab.className='bar-label';lab.textContent=label+(rem?' (−)':' (+)');row.appendChild(lab);
+    const track=document.createElement('div');track.className='bar-track';
+    const fill=document.createElement('div');fill.className='bar-fill';fill.style.width=Math.max(2,v/max*100)+'%';fill.style.background=color;
+    track.appendChild(fill);row.appendChild(track);
+    const val=document.createElement('div');val.className='bar-val';val.textContent=v.toLocaleString('en-US');row.appendChild(val);
+    row.addEventListener('mousemove',e=>showTip('<b>'+label+'</b><br>'+(add?'Added '+add.toLocaleString('en-US')+' rows':'Removed '+rem.toLocaleString('en-US')+' rows'),e.clientX,e.clientY));
+    row.addEventListener('mouseleave',hideTip);
+    m.appendChild(row);
+  });
+})();
+
+/* ---------- nav scroll-spy ---------- */
+(function(){
+  const links=[...document.querySelectorAll('nav.sticky a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  function spy(){let cur=0;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<120)cur=i;});
+    links.forEach((a,i)=>a.classList.toggle('active',i===cur));}
+  window.addEventListener('scroll',spy,{passive:true});spy();
+})();
+</script>
+</body>
+</html>
